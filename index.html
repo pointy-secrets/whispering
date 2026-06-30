@@ -6,12 +6,12 @@
     <title>Grass Labrynth</title>
     <style>
         body {
-            /* Solid White Background */
             background-color: #ffffff;
             color: #000000;
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 60px 15%; 
+            /* Large top margin (150px), standard side margins (15%) */
+            padding: 150px 15% 60px 15%; 
             font-size: 14px; 
             min-height: 100vh;
         }
@@ -30,20 +30,19 @@
             margin-top: 12px;
             margin-bottom: 0.5em;
             line-height: 1.6;
-            /* Two-column layout using Flexbox */
             display: flex;
             flex-direction: column;
         }
         .row {
             display: flex;
             align-items: baseline;
-            margin-bottom: 4px;
+            margin-bottom: 8px; /* Slightly more space between rows */
         }
         .label {
-            color: #000000; /* Black */
+            color: #000000;
             font-weight: normal;
             text-transform: lowercase;
-            width: 40px; /* Fixed width for column alignment */
+            width: 50px; /* Increased width for larger gap between columns */
             flex-shrink: 0;
         }
         .content {
@@ -55,8 +54,8 @@
             width: 100%;
             max-width: 400px;
             margin-bottom: 0;
-            /* 60% Translucency (40% opacity) */
-            opacity: 0.4; 
+            /* Opacity returned to normal (1.0) */
+            opacity: 1.0; 
         }
     </style>
 </head>
