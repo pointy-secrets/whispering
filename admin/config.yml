@@ -1,0 +1,23 @@
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    create: "Create {{collection}} {{slug}}"
+    update: "Update {{collection}} {{slug}}"
+    delete: "Delete {{collection}} {{slug}}"
+    uploadMedia: "Upload {{path}}"
+    deleteMedia: "Delete {{path}}"
+
+media_folder: "assets/music"
+public_folder: "/assets/music"
+
+collections:
+  - name: "songs"
+    label: "Songs"
+    folder: "_data/songs"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Track Name", name: "name", widget: "string" }
+      - { label: "User", name: "user", widget: "string" }
+      - { label: "Audio File", name: "audio", widget: "file", media_types: ["audio/mpeg"] }   
