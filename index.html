@@ -6,10 +6,8 @@
     <title>Grass Labrynth</title>
     <style>
         body {
-            /* Translucent White Background (90% opaque) */
-            /* If you want it more see-through, change 0.9 to 0.8 or 0.7 */
-            background-color: rgba(255, 255, 255, 0.9);
-            
+            /* Solid White Background */
+            background-color: #ffffff;
             color: #000000;
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
@@ -32,21 +30,33 @@
             margin-top: 12px;
             margin-bottom: 0.5em;
             line-height: 1.6;
+            /* Two-column layout using Flexbox */
+            display: flex;
+            flex-direction: column;
+        }
+        .row {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+        .label {
+            color: #000000; /* Black */
+            font-weight: normal;
+            text-transform: lowercase;
+            width: 40px; /* Fixed width for column alignment */
+            flex-shrink: 0;
+        }
+        .content {
+            color: #000000;
+            flex-grow: 1;
         }
         audio {
             display: block;
             width: 100%;
             max-width: 400px;
             margin-bottom: 0;
-        }
-        /* Labels: lowercase, not bold, light grey, NO COLON */
-        .label {
-            color: #888888;
-            font-weight: normal;
-            text-transform: lowercase;
-        }
-        .content {
-            color: #000000;
+            /* 60% Translucency (40% opacity) */
+            opacity: 0.4; 
         }
     </style>
 </head>
@@ -60,12 +70,19 @@
                 Your browser does not support the audio element.
             </audio>
             <div class="info-block">
-                <!-- Colons removed here -->
-                <span class="label">what</span> <span class="content">Dummy Track Title</span><br>
-                <span class="label">who</span> <span class="content">Dummy User Name</span>
+                <div class="row">
+                    <span class="label">what</span>
+                    <span class="content">Dummy Track Title</span>
+                </div>
+                <div class="row">
+                    <span class="label">who</span>
+                    <span class="content">Dummy User Name</span>
+                </div>
             </div>
         </div>
     </div>
+
+    <div id="song-list"></div>
 
     <script>
         fetch('_data/songs.json')
@@ -90,8 +107,14 @@
                             Your browser does not support the audio element.
                         </audio>
                         <div class="info-block">
-                            <span class="label">what</span> <span class="content">${song.name}</span><br>
-                            <span class="label">who</span> <span class="content">${song.user}</span>
+                            <div class="row">
+                                <span class="label">what</span>
+                                <span class="content">${song.name}</span>
+                            </div>
+                            <div class="row">
+                                <span class="label">who</span>
+                                <span class="content">${song.user}</span>
+                            </div>
                         </div>
                     `;
                     container.appendChild(entry);
