@@ -6,35 +6,59 @@
     <title>Whispering Audio</title>
     <style>
         body {
-            /* White Background */
             background-color: #ffffff;
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 40px;
+            /* Much wider margins: 15% on left/right, 60px top/bottom */
+            padding: 60px 15%; 
             color: #000;
+            /* Smaller base font size */
+            font-size: 14px; 
         }
         .entry-container {
-            max-width: 800px;
+            max-width: 100%; /* Fill the available width */
             margin: 0 auto;
         }
         .entry {
-            /* No background color, no border */
             background-color: transparent;
             border: none;
             text-align: left;
-            padding: 0; /* Removed internal padding */
-            margin-bottom: 4.5em; /* Kept the 3-line separation */
+            padding: 0;
+            /* Slightly reduced gap to match smaller text scale, or keep 4.5em for dramatic spacing */
+            margin-bottom: 4em; 
         }
         .info-block {
-            margin-top: 10px; /* Space between player and text */
-            margin-bottom: 0.5em;           }
+            margin-top: 12px;
+            margin-bottom: 0.5em;
+            line-height: 1.6; /* Slightly taller line height for readability */
+        }
+        audio {
+            display: block;
+            width: 100%;
+            max-width: 400px; /* Player size unchanged, or reduce to 300px if desired */
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
 
     <div class="entry-container">
-        <!-- HARDCODED TEST ENTRY -->
+        <!-- TEST ENTRY -->
         <div class="entry">
+            <audio controls>
+                <source src="fake-song.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            
+            <div class="info-block">
+                <strong>Name:</strong> Test Song Title<br>
+                <strong>Description:</strong> The text is now smaller and the site margins are much wider.
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>           <div class="entry">
             <div class="info-block">
                 <strong>Name:</strong> Test Song Title<br>
                 <strong>Description:</strong> If you can see this blue box, your design is working perfectly!
