@@ -1,93 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whispering Audio</title>
-    <style>
-        body {
-            background-color: #ffffff;
-            color: #000000;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 60px 15%; 
-            font-size: 14px; 
-            min-height: 100vh;
-        }
-        .entry-container {
-            max-width: 100%;
-            margin: 0 auto;
-        }
-        .entry {
-            background-color: transparent;
-            border: none;
-            text-align: left;
-            padding: 0;
-            margin-bottom: 4em; 
-        }
-        .info-block {
-            margin-top: 12px;
-            margin-bottom: 0.5em;
-            line-height: 1.6;
-        }
-        audio {
-            display: block;
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 0;
-        }
-        /* Style for the labels (What/Who) */
-        .label {
-            color: #888888; /* Lighter grey */
-            font-weight: bold;
-        }
-        /* Style for the content text */
-        .content {
-            color: #000000; /* Black */
-        }
-    </style>
-</head>
-<body>
-
-    <div class="entry-container" id="song-list">
-        <p>Loading songs...</p>
-    </div>
-
-    <script>
-        fetch('_data/songs.json')
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(songs => {
-                const container = document.getElementById('song-list');
-                container.innerHTML = '';
-                
-                if (!songs || songs.length === 0) {
-                    container.innerHTML = '<p>No songs found yet. Log in to /admin/ to add one!</p>';
-                    return;
-                }
-
-                songs.reverse().forEach(song => {
-                    const entry = document.createElement('div');
-                    entry.className = 'entry';
-                    entry.innerHTML = `
-                        <audio controls>
-                            <source src="${song.audio}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <div class="info-block">
-                            <span class="label">What:</span> <span class="content">${song.name}</span><br>
-                            <span class="label">Who:</span> <span class="content">${song.user}</span>
-                        </div>
-                    `;
-                    container.appendChild(entry);
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('song-list').innerHTML = '<p>Error loading songs.</p>';
-            });
-    </script>
-</body>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Grass Labrynth CMS</title>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body></body>
 </html>   
