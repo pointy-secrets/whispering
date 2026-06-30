@@ -6,17 +6,17 @@
     <title>Whispering Audio</title>
     <style>
         body {
-            background-color: #ffffff;
+            /* Your requested background color */
+            background-color: #F0FFFF;
+            /* Your requested text color */
+            color: #00BDD6;
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            /* Much wider margins: 15% on left/right, 60px top/bottom */
             padding: 60px 15%; 
-            color: #000;
-            /* Smaller base font size */
             font-size: 14px; 
         }
         .entry-container {
-            max-width: 100%; /* Fill the available width */
+            max-width: 100%;
             margin: 0 auto;
         }
         .entry {
@@ -24,17 +24,44 @@
             border: none;
             text-align: left;
             padding: 0;
-            /* Slightly reduced gap to match smaller text scale, or keep 4.5em for dramatic spacing */
             margin-bottom: 4em; 
         }
         .info-block {
             margin-top: 12px;
             margin-bottom: 0.5em;
-            line-height: 1.6; /* Slightly taller line height for readability */
+            line-height: 1.6;
         }
         audio {
             display: block;
             width: 100%;
+            max-width: 400px;
+            margin-bottom: 0;
+            /* Optional: Invert audio player colors to match theme if browser allows */
+            filter: hue-rotate(160deg) saturate(2); 
+        }
+        /* Ensure strong text is visible (sometimes browsers ignore color on strong tags) */
+        strong {
+            color: #00BDD6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="entry-container">
+        <div class="entry">
+            <audio controls>
+                <source src="fake-song.mp3" type="audio/mpeg">
+            </audio>
+            
+            <div class="info-block">
+                <strong>Track Name:</strong> Test Song Title<br>
+                <strong>User:</strong> The text is now cyan (#00BDD6) on a light cyan background (#F0FFFF).
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>               width: 100%;
             max-width: 400px; /* Player size unchanged, or reduce to 300px if desired */
             margin-bottom: 0;
         }
