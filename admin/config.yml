@@ -1,23 +1,22 @@
+# Use DecapBridge classic auth (required)
 backend:
   name: git-gateway
+  repo: pointy-secrets/whispering
   branch: main
+  identity_url: https://auth.decapbridge.com/sites/8459e591-e297-4821-b73b-665b53949e39
+  gateway_url: https://gateway.decapbridge.com
+
+  # See who did what (optional)
   commit_messages:
-    create: "Add track {{slug}}"
-    update: "Update track {{slug}}"
-    delete: "Delete track {{slug}}"
-    uploadMedia: "Upload {{path}}"
-    deleteMedia: "Delete {{path}}"
+    create: Create {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    update: Update {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    delete: Delete {{collection}} “{{slug}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    uploadMedia: Upload “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    deleteMedia: Delete “{{path}}” - {{author-name}} <{{author-login}}> via DecapBridge
+    openAuthoring: Message {{message}} - {{author-name}} <{{author-login}}> via DecapBridge
 
-media_folder: "assets/music"
-public_folder: "/assets/music"
+# Better Decap + Bridge logo (optional)
+logo_url: https://decapbridge.com/decapcms-with-bridge.svg
 
-collections:
-  - name: "songs"
-    label: "Songs"
-    folder: "_data/songs"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "Track Name (What)", name: "name", widget: "string" }
-      - { label: "User (Who)", name: "user", widget: "string" }
-      - { label: "Audio File", name: "audio", widget: "file", media_types: ["audio/mpeg"] }   
+# Add site links in Decap CMS (optional)
+site_url: https://pointy-secrets.github.io
