@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whispering Audio</title>
+    <title>Whispering Audio - Design Test</title>
     <style>
         body {
+            /* Light Grey Background */
             background-color: #f4f4f4;
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
@@ -17,9 +18,42 @@
             margin: 0 auto;
         }
         .entry {
+            /* Lighter Blue Background */
             background-color: #e3f2fd;
             border: 1px solid #bbdefb;
             text-align: left;
             padding: 20px;
             margin-bottom: 4.5em;
-    
+        }
+        .info-block {
+            margin-bottom: 0.5em;
+            line-height: 1.5;
+        }
+        audio {
+            display: block;
+            margin-top: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="entry-container">
+        <!-- HARDCODED TEST ENTRY -->
+        <div class="entry">
+            <div class="info-block">
+                <strong>Name:</strong> Test Song Title<br>
+                <strong>Description:</strong> If you can see this blue box, your design is working perfectly!
+            </div>
+            <!-- Dummy audio player (won't play sound but shows the UI) -->
+            <audio controls>
+                <source src="fake-song.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        <!-- END TEST ENTRY -->
+    </div>
+
+</body>
+</html>   
