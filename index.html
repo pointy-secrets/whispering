@@ -6,14 +6,19 @@
     <title>Whispering Audio</title>
     <style>
         body {
-            /* Your requested background color */
-            background-color: #F0FFFF;
-            /* Your requested text color */
-            color: #00BDD6;
+            /* White Background */
+            background-color: #ffffff;
+            /* Remove any background image */
+            background-image: none;
+            
+            /* Black Text */
+            color: #000000;
+            
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
             padding: 60px 15%; 
             font-size: 14px; 
+            min-height: 100vh;
         }
         .entry-container {
             max-width: 100%;
@@ -36,12 +41,10 @@
             width: 100%;
             max-width: 400px;
             margin-bottom: 0;
-            /* Optional: Invert audio player colors to match theme if browser allows */
-            filter: hue-rotate(160deg) saturate(2); 
         }
-        /* Ensure strong text is visible (sometimes browsers ignore color on strong tags) */
         strong {
-            color: #00BDD6;
+            /* Ensure labels are black */
+            color: #000000;
         }
     </style>
 </head>
@@ -55,48 +58,9 @@
             
             <div class="info-block">
                 <strong>Track Name:</strong> Test Song Title<br>
-                <strong>User:</strong> The text is now cyan (#00BDD6) on a light cyan background (#F0FFFF).
+                <strong>User:</strong> The text is now black on a white background.
             </div>
         </div>
-    </div>
-
-</body>
-</html>               width: 100%;
-            max-width: 400px; /* Player size unchanged, or reduce to 300px if desired */
-            margin-bottom: 0;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="entry-container">
-        <!-- TEST ENTRY -->
-        <div class="entry">
-            <audio controls>
-                <source src="fake-song.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            
-            <div class="info-block">
-                <strong>Name:</strong> Test Song Title<br>
-                <strong>Description:</strong> The text is now smaller and the site margins are much wider.
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>           <div class="entry">
-            <div class="info-block">
-                <strong>Name:</strong> Test Song Title<br>
-                <strong>Description:</strong> If you can see this blue box, your design is working perfectly!
-            </div>
-            <!-- Dummy audio player (won't play sound but shows the UI) -->
-            <audio controls>
-                <source src="fake-song.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        </div>
-        <!-- END TEST ENTRY -->
     </div>
 
 </body>
