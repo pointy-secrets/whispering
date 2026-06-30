@@ -2,9 +2,9 @@ backend:
   name: git-gateway
   branch: main
   commit_messages:
-    create: "Create {{collection}} {{slug}}"
-    update: "Update {{collection}} {{slug}}"
-    delete: "Delete {{collection}} {{slug}}"
+    create: "Add track {{slug}}"
+    update: "Update track {{slug}}"
+    delete: "Delete track {{slug}}"
     uploadMedia: "Upload {{path}}"
     deleteMedia: "Delete {{path}}"
 
@@ -18,6 +18,6 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Track Name", name: "name", widget: "string" }
-      - { label: "User", name: "user", widget: "string" }
+      - { label: "Track Name (What)", name: "name", widget: "string" }
+      - { label: "User (Who)", name: "user", widget: "string" }
       - { label: "Audio File", name: "audio", widget: "file", media_types: ["audio/mpeg"] }   
