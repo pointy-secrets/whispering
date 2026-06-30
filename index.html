@@ -14,15 +14,6 @@
             font-size: 14px; 
             min-height: 100vh;
         }
-        h1 {
-            font-size: 14px; /* Same as body text */
-            font-weight: normal;
-            font-family: 'Courier New', Courier, monospace; /* Same font */
-            margin-bottom: 60px;
-            text-align: left;
-            color: #000000;
-            text-decoration: underline; /* The underline */
-        }
         .entry-container {
             max-width: 100%;
             margin: 0 auto;
@@ -45,59 +36,10 @@
             max-width: 400px;
             margin-bottom: 0;
         }
+        /* Labels: lowercase, not bold, light grey */
         .label {
             color: #888888;
             font-weight: normal;
             text-transform: lowercase;
         }
-        .content {
-            color: #000000;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>grass labrynth improvisations and demos</h1>
-
-    <div class="entry-container" id="song-list">
-        <p>Loading songs...</p>
-    </div>
-
-    <script>
-        fetch('_data/songs.json')
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(songs => {
-                const container = document.getElementById('song-list');
-                container.innerHTML = '';
-                
-                if (!songs || songs.length === 0) {
-                    container.innerHTML = '<p>No songs found yet.</p>';
-                    return;
-                }
-
-                songs.reverse().forEach(song => {
-                    const entry = document.createElement('div');
-                    entry.className = 'entry';
-                    entry.innerHTML = `
-                        <audio controls>
-                            <source src="${song.audio}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <div class="info-block">
-                            <span class="label">what:</span> <span class="content">${song.name}</span><br>
-                            <span class="label">who:</span> <span class="content">${song.user}</span>
-                        </div>
-                    `;
-                    container.appendChild(entry);
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('song-list').innerHTML = '<p>Error loading songs.</p>';
-            });
-    </script>
-</body>
-</html>   
+        /* Content:    
