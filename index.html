@@ -36,10 +36,33 @@
             max-width: 400px;
             margin-bottom: 0;
         }
-        /* Labels: lowercase, not bold, light grey */
         .label {
             color: #888888;
             font-weight: normal;
             text-transform: lowercase;
         }
-        /* Content:    
+        .content {
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="entry-container">
+        <!-- HARDCODED DUMMY ENTRY -->
+        <div class="entry">
+            <audio controls>
+                <source src="fake-song.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <div class="info-block">
+                <span class="label">what:</span> <span class="content">Dummy Track Title</span><br>
+                <span class="label">who:</span> <span class="content">Dummy User Name</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script removed temporarily to test basic HTML -->
+
+</body>
+</html>   
