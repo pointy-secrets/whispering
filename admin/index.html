@@ -2,7 +2,6 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <!-- Correct Syntax: Note the trailing 0 -->
   <title>Protected Page</title>
   <style>
     body {
@@ -29,7 +28,6 @@
       padding: 0;
       margin: 0;
     }
-    /* Hide everything else */
     .staticrypt-instructions, 
     .staticrypt-button, 
     .staticrypt-remember, 
@@ -37,24 +35,20 @@
     form {
       display: none;
     }
-    /* Hide the encrypted content container until unlocked */
     #staticrypt-content {
       display: none;
     }
   </style>
 </head>
 <body>
-  <!-- Only the input field is visible -->
   <form id="staticrypt-form" action="#" method="post">
     <input id="staticrypt-password" type="password" name="password" placeholder="" autofocus autocomplete="off" />
   </form>
   
-  <!-- The script handles decryption -->
   <script>
-    // StatiCrypt logic injected here automatically
+    /* StatiCrypt logic injected here */
   </script>
   
-  <!-- CRITICAL: Correct Syntax with trailing 0 -->
   <div id="staticrypt-content">encrypted_content</div>
 </body>
 </html>   
