@@ -2,8 +2,10 @@ backend:
   name: github
   repo: pointy-secrets/whispering
   branch: main
-  # Make sure this URL is correct and has NO trailing slash
-  auth_endpoint: https://grass-labrynth-auth.yip-3e3.workers.dev
+  # Ensure this URL is correct (no trailing slash)
+  base_url: https://grass-labrynth-auth.yip-3e3.workers.dev
+  # Explicitly define the auth endpoint
+  auth_endpoint: https://grass-labrynth-auth.yip-3e3.workers.dev/auth
 
 media_folder: "assets/music"
 public_folder: "/assets/music"
