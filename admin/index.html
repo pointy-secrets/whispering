@@ -11,44 +11,51 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      font-family: 'Courier New', Courier, monospace; /* Matches MP3 page */
+      font-size: 14px; /* Matches MP3 page */
       overflow: hidden;
     }
     /* The Input Field */
     #staticrypt-password {
       background: transparent;
-      border: none;       /* Removes the line/box */
-      outline: none;      /* Removes the blue glow */
-      color: #000000;     /* Text color */
-      font-size: 16px;
-      font-family: 'Courier New', Courier, monospace;
+      border: none;
+      outline: none;
+      color: #000000;
+      font-family: 'Courier New', Courier, monospace; /* Matches MP3 page */
+      font-size: 14px; /* Matches MP3 page */
       text-align: center;
-      width: 20px;        /* Tiny width, expands as you type */
-      caret-color: #000;  /* Ensures the cursor is black */
+      width: 20px;
+      caret-color: #000;
+      padding: 0;
+      margin: 0;
     }
-    /* Hide everything else */
+    /* Hide instructions, buttons, and the placeholder text */
     .staticrypt-instructions, 
     .staticrypt-button, 
     .staticrypt-remember, 
     .staticrypt-footer,
+    .staticrypt-placeholder,
     form {
-      border: none;
-      margin: 0;
-      padding: 0;
+      display: none; /* Completely hides the form structure */
+    }
+    /* CRITICAL: Hide the encrypted content placeholder text until unlocked */
+    #staticrypt-content {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <!-- Only the input field remains -->
+  <!-- Only the input field is visible -->
   <form id="staticrypt-form" action="#" method="post">
     <input id="staticrypt-password" type="password" name="password" placeholder="" autofocus autocomplete="off" />
   </form>
   
-  <!-- DO NOT REMOVE THE SCRIPT BELOW: It handles the decryption -->
+  <!-- The script handles decryption -->
   <script>
-    // StatiCrypt logic is injected here automatically during encryption
+    // StatiCrypt logic injected here
   </script>
   
-  <!-- The encrypted content is injected here, but hidden by CSS until unlocked -->
-  {encrypted_content}
+  <!-- This tag MUST exist for encryption, but CSS hides it until unlocked -->
+  <div id="staticrypt-content">{encrypted_content}</div>
 </body>
 </html>   
