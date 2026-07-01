@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{title}</title>
+  <style>
+    body {
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    /* The Input Field */
+    #staticrypt-password {
+      background: transparent;
+      border: none;       /* Removes the line/box */
+      outline: none;      /* Removes the blue glow */
+      color: #000000;     /* Text color */
+      font-size: 16px;
+      font-family: 'Courier New', Courier, monospace;
+      text-align: center;
+      width: 20px;        /* Tiny width, expands as you type */
+      caret-color: #000;  /* Ensures the cursor is black */
+    }
+    /* Hide everything else */
+    .staticrypt-instructions, 
+    .staticrypt-button, 
+    .staticrypt-remember, 
+    .staticrypt-footer,
+    form {
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Only the input field remains -->
+  <form id="staticrypt-form" action="#" method="post">
+    <input id="staticrypt-password" type="password" name="password" placeholder="" autofocus autocomplete="off" />
+  </form>
+  
+  <!-- DO NOT REMOVE THE SCRIPT BELOW: It handles the decryption -->
+  <script>
+    // StatiCrypt logic is injected here automatically during encryption
+  </script>
+  
+  <!-- The encrypted content is injected here, but hidden by CSS until unlocked -->
+  {encrypted_content}
+</body>
+</html>   
