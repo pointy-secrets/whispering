@@ -1,10 +1,10 @@
 # Use DecapBridge classic auth (required)
 backend:
-  name: git-gateway
+  name: github
   repo: pointy-secrets/whispering
   branch: main
-  identity_url: https://auth.decapbridge.com/sites/8459e591-e297-4821-b73b-665b53949e39
-  gateway_url: https://gateway.decapbridge.com
+  # Insert your Worker URL below
+  auth_endpoint: https://grass-labrynth-auth.xxxxx.workers.dev/auth   
 
   # See who did what (optional)
   commit_messages:
