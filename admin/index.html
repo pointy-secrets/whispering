@@ -2,7 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>{title}</title>
+  <!-- Use the new comment syntax for title -->
+  <title><!--[|template_title|]--></title>
   <style>
     body {
       background: #ffffff;
@@ -11,34 +12,32 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      font-family: 'Courier New', Courier, monospace; /* Matches MP3 page */
-      font-size: 14px; /* Matches MP3 page */
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
       overflow: hidden;
     }
-    /* The Input Field */
     #staticrypt-password {
       background: transparent;
       border: none;
       outline: none;
       color: #000000;
-      font-family: 'Courier New', Courier, monospace; /* Matches MP3 page */
-      font-size: 14px; /* Matches MP3 page */
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
       text-align: center;
       width: 20px;
       caret-color: #000;
       padding: 0;
       margin: 0;
     }
-    /* Hide instructions, buttons, and the placeholder text */
+    /* Hide everything else */
     .staticrypt-instructions, 
     .staticrypt-button, 
     .staticrypt-remember, 
     .staticrypt-footer,
-    .staticrypt-placeholder,
     form {
-      display: none; /* Completely hides the form structure */
+      display: none;
     }
-    /* CRITICAL: Hide the encrypted content placeholder text until unlocked */
+    /* Hide the encrypted content container until unlocked */
     #staticrypt-content {
       display: none;
     }
@@ -52,10 +51,10 @@
   
   <!-- The script handles decryption -->
   <script>
-    // StatiCrypt logic injected here
+    // StatiCrypt logic injected here automatically
   </script>
   
-  <!-- This tag MUST exist for encryption, but CSS hides it until unlocked -->
-  <div id="staticrypt-content">{encrypted_content}</div>
+  <!-- CRITICAL: Use the new comment syntax for the encrypted content -->
+  <div id="staticrypt-content"><!--[|encrypted_content|]--></div>
 </body>
 </html>   
