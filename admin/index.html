@@ -1,71 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.4">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000; min-height: 16.0px}
-    span.s1 {font-kerning: none}
+  <meta charset="utf-8">
+  <title>{title}</title>
+  <style>
+    body {
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    /* The Input Field */
+    #staticrypt-password {
+      background: transparent;
+      border: none;       /* Removes the line/box */
+      outline: none;      /* Removes the blue glow */
+      color: #000000;     /* Text color */
+      font-size: 16px;
+      font-family: 'Courier New', Courier, monospace;
+      text-align: center;
+      width: 20px;        /* Tiny width, expands as you type */
+      caret-color: #000;  /* Ensures the cursor is black */
+    }
+    /* Hide everything else */
+    .staticrypt-instructions, 
+    .staticrypt-button, 
+    .staticrypt-remember, 
+    .staticrypt-footer,
+    form {
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;{title}&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: #ffffff;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 100vh;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>overflow: hidden;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* The Input Field */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>#staticrypt-password {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: transparent;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: none; <span class="Apple-converted-space">      </span>/* Removes the line/box */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>outline: none;<span class="Apple-converted-space">      </span>/* Removes the blue glow */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #000000; <span class="Apple-converted-space">    </span>/* Text color */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-family: 'Courier New', Courier, monospace;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 20px;<span class="Apple-converted-space">        </span>/* Tiny width, expands as you type */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>caret-color: #000;<span class="Apple-converted-space">  </span>/* Ensures the cursor is black */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Hide everything else */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.staticrypt-instructions,<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.staticrypt-button,<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.staticrypt-remember,<span class="Apple-converted-space"> </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.staticrypt-footer,</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>form {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: none;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- Only the input field remains --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;form id="staticrypt-form" action="#" method="post"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;input id="staticrypt-password" type="password" name="password" placeholder="" autofocus autocomplete="off" /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/form&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- DO NOT REMOVE THE SCRIPT BELOW: It handles the decryption --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// StatiCrypt logic is injected here automatically during encryption</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</span></p>
-<p class="p2"><span class="s1"><span class="Apple-converted-space">  </span></span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- The encrypted content is injected here, but hidden by CSS until unlocked --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>{encrypted_content}</span></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;<span class="Apple-converted-space">   </span></span></p>
+  <!-- Only the input field remains -->
+  <form id="staticrypt-form" action="#" method="post">
+    <input id="staticrypt-password" type="password" name="password" placeholder="" autofocus autocomplete="off" />
+  </form>
+  
+  <!-- DO NOT REMOVE THE SCRIPT BELOW: It handles the decryption -->
+  <script>
+    // StatiCrypt logic is injected here automatically during encryption
+  </script>
+  
+  <!-- The encrypted content is injected here, but hidden by CSS until unlocked -->
+  {encrypted_content}
 </body>
-</html>
+</html>   
