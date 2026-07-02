@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>/*[|template_title|]*/0</title>
+  <style>
+    body {
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'General Sans', 'General Sans Regular', sans-serif;
+      font-size: 14px;
+      overflow: hidden;
+    }
+    #staticrypt-password {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #00C3E1;
+      font-family: 'General Sans', 'General Sans Regular', sans-serif;
+      font-size: 50px;
+      text-align: center;
+      width: 400px;
+      caret-color: #00C3E1;
+      padding: 0;
+      margin: 0;
+      border-bottom: 2px solid #00C3E1;
+    }
+    #staticrypt-password::placeholder {
+      color: #00C3E1;
+      opacity: 0.6;
+    }
+    .staticrypt-instructions, 
+    .staticrypt-button, 
+    .staticrypt-remember, 
+    .staticrypt-footer,
+    .staticrypt-toggle-password-visibility {
+      display: none;
+    }
+    #staticrypt-content {
+      display: none;
+    }
+    form {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <form id="staticrypt-form" action="#" method="post">
+    <input id="staticrypt-password" type="password" name="password" placeholder="password" autofocus autocomplete="off" />
+  </form>
+  
+  <script>
+    const staticryptInitiator = /*[|js_staticrypt|]*/ 0;
+    const templateError = "/*[|template_error|]*/0",
+        templateToggleAltShow = "/*[|template_toggle_show|]*/0",
+        templateToggleAltHide = "/*[|template_toggle_hide|]*/0",
+        isRememberEnabled = /*[|is_remember_enabled|]*/ 0,
+        staticryptConfig = /*[|staticrypt_config|]*/ 0;
+
+    const templateConfig = {
+        rememberExpirationKey: "staticrypt_expiration",
+        rememberPassphraseKey: "staticrypt_passphrase",
+        replaceHtmlCallback: null,
+        clearLocalStorageCallback: null,
+    };
+
+    const staticrypt = staticryptInitiator.init(staticryptConfig, templateConfig);
+
+    window.onload = async function () {
+        const { isSuccessful } = await staticrypt.handleDecryptOnLoad();
+
+        if (!isSuccessful) {
+            document.getElementById("staticrypt-password").focus();
+        }
+    };
+
+    document.getElementById("staticrypt-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const password = document.getElementById("staticrypt-password").value;
+        const { isSuccessful } = await staticrypt.handleDecryptionOfPage(password, false);
+
+        if (!isSuccessful) {
+            alert(templateError);
+        }
+    });
+  </script>
+  
+  <div id="staticrypt-content">/*[|encrypted_content|]*/0</div>
+</body>
+</html>

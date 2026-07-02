@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #00C3E1;
+            font-family: 'General Sans', 'General Sans Regular', sans-serif;
+            margin: 0;
+            padding: 40px 40px 200px 40px; 
+            font-size: 50px; 
+            min-height: 100vh;
+        }
+        .entry-container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .entry {
+            background-color: transparent;
+            border: none;
+            text-align: left;
+            padding: 0;
+            margin: 0; 
+        }
+        .info-block {
+            margin-top: 0;
+            margin-bottom: 0;
+            line-height: 1.4;
+            display: flex;
+            flex-direction: column;
+        }
+        .row {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 12px;
+            gap: 15px;
+        }
+        .drop-zone {
+            margin-bottom: 12px;
+            border: 2px solid #00C3E1;
+            border-radius: 8px;
+            padding: 40px 20px;
+            min-height: 200px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #ffffff;
+            transition: background-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .drop-zone:hover {
+            background-color: #f0f9ff;
+        }
+        .drop-zone.dragover {
+            background-color: #e8f5ff;
+        }
+        .drop-zone-text {
+            margin: 0;
+            font-size: 70px;
+            color: #00C3E1;
+            padding: 0;
+        }
+        .file-name {
+            margin: 8px 0 0 0;
+            font-size: 50px;
+            color: #00C3E1;
+        }
+        #fileInput {
+            display: none;
+        }
+        .label {
+            color: #00C3E1;
+            font-weight: normal;
+            text-transform: lowercase;
+            flex-shrink: 0;
+        }
+        input[type="text"] {
+            background-color: #ffffff;
+            color: #00C3E1;
+            font-family: 'General Sans', 'General Sans Regular', sans-serif;
+            border: none;
+            padding: 2px 0;
+            font-size: 50px;
+            width: 500px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #00C3E1;
+        }
+        input[type="text"]::placeholder {
+            color: #00C3E1;
+        }
+        button {
+            background-color: rgba(0, 195, 225, 0.08);
+            color: #00C3E1;
+            font-family: 'General Sans', 'General Sans Regular', sans-serif;
+            border: none;
+            padding: 16px 32px;
+            font-size: 70px;
+            font-weight: 400;
+            cursor: pointer;
+            margin-top: 12px;
+            width: fit-content;
+            text-align: center;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: rgba(0, 195, 225, 0.2);
+            color: #00C3E1;
+        }
+        button:active {
+            background-color: rgba(0, 195, 225, 0.3);
+            color: #00C3E1;
+        }
+        #status {
+            margin-top: 12px;
+            font-size: 50px;
+            font-style: italic;
+            color: #00C3E1;
+        }
+    </style>
+</head>
+<body>
+    <div class="entry-container">
+        <div class="entry">
+            <div class="info-block">
+                <div class="drop-zone" id="dropZone">
+                    <p class="drop-zone-text">drop mp3 here</p>
+                    <p class="drop-zone-text" style="font-size: 60px; margin-top: 8px;">or click to browse</p>
+                    <p class="file-name" id="fileName"></p>
+                </div>
+
+                <input type="file" id="fileInput" accept=".mp3,audio/mpeg">
+
+                <div class="row">
+                    <input type="text" id="artist" placeholder="your name" required>
+                </div>
+                
+                <button onclick="uploadSong()">upload</button>
+                
+                <p id="status"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TOKEN = 'YOUR_GITHUB_PAT_HERE';
+        const OWNER = 'pointy-secrets';
+        const REPO = 'whispering';
+        const BRANCH = 'main';
+        let selectedFile = null;
+
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileNameDisplay = document.getElementById('fileName');
+
+        // Click to browse
+        dropZone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Handle file selection from input
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                selectedFile = e.target.files[0];
+                fileNameDisplay.innerText = selectedFile.name;
+            }
+        });
+
+        // Drag and drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('dragover');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                selectedFile = files[0];
+                fileNameDisplay.innerText = selectedFile.name;
+            }
+        });
+
+        async function uploadSong() {
+            const artist = document.getElementById('artist').value;
+            const file = selectedFile;
+            const status = document.getElementById('status');
+
+            if (!file || !artist) { 
+                alert('Please select a file and enter a name'); 
+                return; 
+            }
+
+            status.innerText = "uploading...";
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const content = e.target.result.split(',')[1];
+                const path = `assets/uploads/${file.name}`;
+                await commitFile(path, content, `Upload: ${artist} - ${file.name}`);
+                status.innerText = "upload complete!";
+                selectedFile = null;
+                fileNameDisplay.innerText = '';
+                fileInput.value = '';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        async function commitFile(path, content, message) {
+            const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`;
+            let sha = null;
+            try {
+                const getRes = await fetch(url, { headers: { Authorization: `token ${TOKEN}` } });
+                if (getRes.ok) { 
+                    const data = await getRes.json(); 
+                    sha = data.sha; 
+                }
+            } catch (e) { /* File doesn't exist */ }
+
+            const body = { message, content, branch: BRANCH };
+            if (sha) body.sha = sha;
+
+            const res = await fetch(url, {
+                method: 'PUT',
+                headers: { Authorization: `token ${TOKEN}` },
+                body: JSON.stringify(body)
+            });
+
+            if (!res.ok) throw new Error('Upload failed');
+        }
+    </script>
+</body>
+</html>
