@@ -240,7 +240,7 @@
     // artist filters
     const artists = [...new Set(tracks.map(t => t.artist || t.user))].sort();
     const allBtn = document.createElement('button');
-    allBtn.textContent = 'whisperers';
+    allBtn.textContent = 'The whisperers';
     allBtn.dataset.filter = 'all';
     allBtn.classList.add('active');
     filterMenu.appendChild(allBtn);
