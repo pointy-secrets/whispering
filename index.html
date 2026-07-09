@@ -36,10 +36,13 @@
 
   .header {
     display: flex;
-    gap: 16px;
+    gap: 0;
     margin-bottom: 28px;
     font-size: 11px;
     color: #00C3E1;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 
   .header a {
@@ -160,8 +163,9 @@
 
 <div class="container">
   <div class="header">
-    <a href="/" class="active">whispers</a>
-    <a href="/upload/">shout</a>
+    <a href="/" class="active" style="font-style:italic">whispering!</a>
+    <span style="flex:1"></span>
+    <a href="/upload/">upload</a>
     <button class="filter-btn" id="filterBtn" aria-label="Filter by artist">
       <span></span><span></span><span></span>
     </button>
