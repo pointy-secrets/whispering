@@ -180,18 +180,6 @@
   let currentFilter = 'all';
   let allTracks = [];
 
-  // Add the doorway link to the top of the hamburger menu
-  const doorwayLink = document.createElement('button');
-  doorwayLink.textContent = 'the doorway';
-  doorwayLink.dataset.filter = '__doorway__';
-  doorwayLink.style.borderBottom = '1px solid #00C3E1';
-  doorwayLink.style.marginBottom = '4px';
-  doorwayLink.style.paddingBottom = '8px';
-  doorwayLink.addEventListener('click', () => {
-    window.location.href = '/upload/';
-  });
-  filterMenu.appendChild(doorwayLink);
-
   filterBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     filterMenu.classList.toggle('open');
@@ -235,6 +223,16 @@
 
   function buildFilterMenu(tracks) {
     filterMenu.innerHTML = '';
+    // doorway link at top
+    const door = document.createElement('button');
+    door.textContent = 'the doorway';
+    door.style.borderBottom = '1px solid #00C3E1';
+    door.style.marginBottom = '4px';
+    door.style.paddingBottom = '8px';
+    door.style.borderRadius = '0';
+    door.addEventListener('click', () => { window.location.href = '/upload/'; });
+    filterMenu.appendChild(door);
+    // artist filters
     const artists = [...new Set(tracks.map(t => t.artist || t.user))].sort();
     const allBtn = document.createElement('button');
     allBtn.textContent = 'all artists';
