@@ -179,8 +179,8 @@
     .track audio { height: 28px; }
   }
   @media (min-width: 768px) {
-    .container { max-width: 600px; }
-    body { padding: 60px 40px 100px; font-size: 6pt; }
+    .container { max-width: 720px; }
+    body { padding: 16px 12px 40px; font-size: 6pt; }
     .track-info { font-size: 6pt; }
     .track audio { height: 36px; }
   }
@@ -261,7 +261,7 @@
     filterMenu.innerHTML = '';
     // doorway link at top
     const door = document.createElement('button');
-    door.textContent = 'The Courtyard';
+    door.textContent = 'Doorway';
     door.style.fontWeight = '700';
     door.style.borderBottom = '0.5px solid #00C3E1';
     door.style.marginBottom = '4px';
@@ -272,7 +272,7 @@
     // artist filters
     const artists = [...new Set(tracks.map(t => t.artist || t.user))].sort();
     const allBtn = document.createElement('button');
-    allBtn.textContent = 'The whisperers';
+    allBtn.textContent = 'Voices';
     allBtn.dataset.filter = 'all';
     allBtn.classList.add('active');
     filterMenu.appendChild(allBtn);
