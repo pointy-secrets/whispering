@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>whispering!</title>
+<title>whispers</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
 
@@ -11,7 +11,7 @@
 
   body {
     background: #fff;
-    color: #000;
+    color: #00C3E1;
     font-family: 'Inter', sans-serif;
     font-size: 5pt;
     line-height: 1.5;
@@ -22,6 +22,12 @@
     padding: 40px 20px 80px;
   }
 
+  a {
+    color: #00C3E1;
+    text-decoration: none;
+  }
+  a:hover { opacity: 0.7; }
+
   .container {
     width: 100%;
     max-width: 380px;
@@ -29,19 +35,20 @@
   }
 
   .header {
+    display: flex;
+    gap: 16px;
     margin-bottom: 28px;
-  }
-
-  .header h1 {
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 2px;
-  }
-
-  .header .subtitle {
     font-size: 11px;
-    color: #999;
+    color: #00C3E1;
+  }
+
+  .header a {
+    font-size: 11px;
+    color: #00C3E1;
+  }
+
+  .header .active {
+    font-weight: 700;
   }
 
   /* hamburger filter */
@@ -66,33 +73,30 @@
     display: block;
     width: 14px;
     height: 1.5px;
-    background: #bbb;
+    background: #00C3E1;
     border-radius: 1px;
     transition: all 0.15s;
   }
 
   .filter-btn:hover span {
-    background: #00C3E1;
+    opacity: 0.7;
   }
 
-  /* popup menu */
   .filter-menu {
     display: none;
     position: absolute;
     top: 32px;
     right: 0;
     background: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #00C3E1;
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 16px rgba(0,195,225,0.08);
     min-width: 120px;
     padding: 4px;
     z-index: 10;
   }
 
-  .filter-menu.open {
-    display: block;
-  }
+  .filter-menu.open { display: block; }
 
   .filter-menu button {
     display: block;
@@ -103,21 +107,14 @@
     font-size: 5pt;
     border: none;
     background: none;
-    color: #999;
+    color: #00C3E1;
     cursor: pointer;
     border-radius: 4px;
     transition: all 0.1s;
   }
 
-  .filter-menu button:hover {
-    background: #f5f5f5;
-    color: #000;
-  }
-
-  .filter-menu button.active {
-    color: #00C3E1;
-    font-weight: 600;
-  }
+  .filter-menu button:hover { background: #f0fafc; }
+  .filter-menu button.active { font-weight: 700; }
 
   .track-list {
     display: flex;
@@ -136,19 +133,25 @@
     height: 32px;
   }
 
+  /* Style native audio controls to be cyan */
+  audio::-webkit-media-controls-panel { background: #fff; }
+  audio::-webkit-media-controls-play-button { 
+    border-radius: 50%;
+    color: #00C3E1;
+  }
+  audio::-webkit-media-controls-current-time-display { color: #00C3E1; font-size: 5pt; }
+  audio::-webkit-media-controls-time-remaining-display { color: #00C3E1; font-size: 5pt; }
+  audio::-webkit-media-controls-timeline { color: #00C3E1; }
+  audio::-webkit-media-controls-volume-slider { color: #00C3E1; }
+
   .track-info {
     font-size: 5pt;
     line-height: 1.4;
+    color: #00C3E1;
   }
 
-  .track-title {
-    font-weight: 500;
-    color: #000;
-  }
-
-  .track-artist {
-    color: #999;
-  }
+  .track-title { font-weight: 500; }
+  .track-artist { opacity: 0.7; }
 
   .hidden { display: none; }
 </style>
@@ -157,8 +160,8 @@
 
 <div class="container">
   <div class="header">
-    <h1>whispering!</h1>
-    <div class="subtitle">improvisations</div>
+    <a href="/" class="active">whispers</a>
+    <a href="/upload/">shout</a>
     <button class="filter-btn" id="filterBtn" aria-label="Filter by artist">
       <span></span><span></span><span></span>
     </button>
@@ -175,7 +178,6 @@
   let currentFilter = 'all';
   let allTracks = [];
 
-  // build filter menu
   filterBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     filterMenu.classList.toggle('open');
@@ -197,7 +199,7 @@
 
   function render(filter) {
     list.innerHTML = '';
-    const filtered = filter === 'all' ? allTracks : allTracks.filter(t => t.artist === filter);
+    const filtered = filter === 'all' ? allTracks : allTracks.filter(t => (t.artist || t.user) === filter);
     filtered.forEach(t => {
       const row = document.createElement('div');
       row.className = 'track';
@@ -233,7 +235,6 @@
     });
   }
 
-  // fetch songs
   fetch('_data/songs.json')
     .then(r => {
       if (!r.ok) throw new Error('Network response was not ok');
