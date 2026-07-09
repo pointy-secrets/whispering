@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>whispers</title>
+<title>whispering!</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
 
@@ -19,82 +19,48 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px 80px;
+    padding: 40px 24px 60px;
   }
 
-  a {
-    color: #00C3E1;
-    text-decoration: none;
-  }
+  a { color: #00C3E1; text-decoration: none; }
   a:hover { opacity: 0.7; }
 
   .container {
     width: 100%;
-    max-width: 380px;
+    max-width: 720px;
     position: relative;
   }
 
   .header {
     display: flex;
-    gap: 0;
-    margin-bottom: 20px;
-    font-size: 11px;
-    color: #00C3E1;
-    width: 100%;
-    display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    min-height: 80px;
+    align-items: center;
+    margin-bottom: 20px;
     position: relative;
   }
 
-  .header a {
-    font-size: 11px;
-    color: #00C3E1;
-  }
-  .site-logo {
+  .header .logo {
+    font-size: 24px;
     font-style: italic;
     font-weight: 400;
-    font-size: 12pt;
-    line-height: 1.5;
-    letter-spacing: 0;
     color: #00C3E1;
-    text-decoration: none;
   }
 
-  .header .active {
-    font-weight: 200;
-  }
-
-  /* hamburger filter */
   .filter-btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 28px;
-    height: 28px;
     background: none;
     border: none;
     cursor: pointer;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: 3px;
     padding: 0;
   }
-
   .filter-btn span {
     display: block;
-    width: 14px;
-    height: 1.5px;
+    width: 18px;
+    height: 2px;
     background: #00C3E1;
     border-radius: 1px;
-    transition: all 0.15s;
-  }
-
-  .filter-btn:hover span {
-    opacity: 0.7;
   }
 
   .filter-menu {
@@ -105,19 +71,16 @@
     background: #fff;
     border: 1px solid #00C3E1;
     border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0,195,225,0.08);
-    min-width: 120px;
-    padding: 4px;
+    min-width: 160px;
+    padding: 6px;
     z-index: 10;
   }
-
   .filter-menu.open { display: block; }
-
   .filter-menu button {
     display: block;
     width: 100%;
     text-align: left;
-    padding: 6px 10px;
+    padding: 8px 10px;
     font-family: 'Inter', sans-serif;
     font-size: 12pt;
     border: none;
@@ -125,11 +88,21 @@
     color: #00C3E1;
     cursor: pointer;
     border-radius: 4px;
-    transition: all 0.1s;
   }
-
   .filter-menu button:hover { background: #f0fafc; }
   .filter-menu button.active { font-weight: 700; }
+  .filter-menu .divider {
+    border-bottom: 0.5px solid #00C3E1;
+    margin-bottom: 4px;
+    padding-bottom: 8px;
+  }
+
+  .intro-text {
+    font-size: 12pt;
+    line-height: 1.6;
+    color: #00C3E1;
+    margin-bottom: 24px;
+  }
 
   .track-list {
     display: flex;
@@ -145,53 +118,25 @@
 
   .track audio {
     width: 100%;
-    height: 32px;
+    height: 36px;
   }
-
-  /* Style native audio controls to be cyan */
-  audio::-webkit-media-controls-panel { background: #fff; }
-  audio::-webkit-media-controls-play-button { 
-    border-radius: 50%;
-    color: #00C3E1;
-  }
-  audio::-webkit-media-controls-current-time-display { color: #00C3E1; font-size: 5pt; }
-  audio::-webkit-media-controls-time-remaining-display { color: #00C3E1; font-size: 5pt; }
-  audio::-webkit-media-controls-timeline { color: #00C3E1; }
-  audio::-webkit-media-controls-volume-slider { color: #00C3E1; }
 
   .track-info {
-    font-size: 12pt;
-    line-height: 1.4;
-    color: #00C3E1;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
     gap: 8px;
+    font-size: 12pt;
+    color: #00C3E1;
   }
-
   .track-title { font-weight: 500; }
   .track-artist { opacity: 0.7; }
 
-  .hidden { display: none; }
-  /* responsive */
-  @media (max-width: 420px) {
-    .container { padding: 0; max-width: 100%; }
+  @media (max-width: 600px) {
     body { padding: 24px 16px 60px; }
-    .track-info { font-size: 4pt; }
-    .header a { font-size: 10px; }
-    .track audio { height: 28px; }
-  }  @media (min-width: 768px) {
-    .container { max-width: 720px; }
-    body { padding: 16px 12px 40px; font-size: 6pt; }
-    .track-info { font-size: 6pt; }
-    .track audio { width: 300px; height: 36px; }
-  }
-  @media (min-width: 1200px) {
-    .container { max-width: 900px; }
-    body { padding: 48px 16px 60px; font-size: 6pt; }
-    .track-info { font-size: 6pt; }
-    .track audio { width: 300px; height: 36px; }
-    .filter-menu button { font-size: 5pt; }
+    .container { max-width: 100%; }
+    .header .logo { font-size: 20px; }
+    .track-info { font-size: 11pt; }
   }
 </style>
 </head>
@@ -199,13 +144,16 @@
 
 <div class="container">
   <div class="header">
-    <a href="/" class="active site-logo">whispering!</a>
-    <button class="filter-btn" id="filterBtn" aria-label="Filter by artist">
+    <a href="/" class="logo">whispering!</a>
+    <button class="filter-btn" id="filterBtn" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
     <div class="filter-menu" id="filterMenu"></div>
   </div>
-</div>
+
+  <div class="intro-text">
+    we love improvising. we love improvising so much. its our life. So many times we beared the entire curvature of the our motivation itself by improvising. here is a space for finally honoring, exaulting, and celebrating our actual pace as and whenever it actually is whatever it is.
+  </div>
 
   <div class="track-list" id="trackList"></div>
 </div>
@@ -217,24 +165,19 @@
   let currentFilter = 'all';
   let allTracks = [];
 
+  const door = document.createElement('button');
+  door.textContent = 'The Courtyard';
+  door.style.fontWeight = '700';
+  door.className = 'divider';
+  door.addEventListener('click', () => { window.location.href = '/upload/'; });
+  filterMenu.appendChild(door);
+
   filterBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     filterMenu.classList.toggle('open');
   });
-
-  document.addEventListener('click', () => {
-    filterMenu.classList.remove('open');
-  });
-
-  filterMenu.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON') {
-      currentFilter = e.target.dataset.filter;
-      filterMenu.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      filterMenu.classList.remove('open');
-      render(currentFilter);
-    }
-  });
+  document.addEventListener('click', () => { filterMenu.classList.remove('open'); });
+  filterMenu.addEventListener('click', (e) => { e.stopPropagation(); });
 
   function render(filter) {
     list.innerHTML = '';
@@ -242,16 +185,13 @@
     filtered.forEach(t => {
       const row = document.createElement('div');
       row.className = 'track';
-
       const audio = document.createElement('audio');
       audio.controls = true;
       audio.preload = 'none';
       audio.src = t.src || t.audio;
-
       const info = document.createElement('div');
       info.className = 'track-info';
-      info.innerHTML = `<span class="track-title">${t.title || t.name}</span><br><span class="track-artist">- ${t.artist || t.user}</span>`;
-
+      info.innerHTML = `<span class="track-title">${t.title || t.name}</span><span class="track-artist">- ${t.artist || t.user}</span>`;
       row.appendChild(audio);
       row.appendChild(info);
       list.appendChild(row);
@@ -259,21 +199,9 @@
   }
 
   function buildFilterMenu(tracks) {
-    filterMenu.innerHTML = '';
-    // doorway link at top
-    const door = document.createElement('button');
-    door.textContent = 'Doorway';
-    door.style.fontWeight = '700';
-    door.style.borderBottom = '0.5px solid #00C3E1';
-    door.style.marginBottom = '4px';
-    door.style.paddingBottom = '8px';
-    door.style.borderRadius = '0';
-    door.addEventListener('click', () => { window.location.href = '/upload/'; });
-    filterMenu.appendChild(door);
-    // artist filters
     const artists = [...new Set(tracks.map(t => t.artist || t.user))].sort();
     const allBtn = document.createElement('button');
-    allBtn.textContent = 'Voices';
+    allBtn.textContent = 'The whisperers';
     allBtn.dataset.filter = 'all';
     allBtn.classList.add('active');
     filterMenu.appendChild(allBtn);
@@ -285,11 +213,18 @@
     });
   }
 
+  filterMenu.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON' && e.target.dataset.filter) {
+      currentFilter = e.target.dataset.filter;
+      filterMenu.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      filterMenu.classList.remove('open');
+      render(currentFilter);
+    }
+  });
+
   fetch('_data/songs.json')
-    .then(r => {
-      if (!r.ok) throw new Error('Network response was not ok');
-      return r.json();
-    })
+    .then(r => { if (!r.ok) throw new Error('Network'); return r.json(); })
     .then(songs => {
       if (!songs || songs.length === 0) return;
       allTracks = songs;
