@@ -169,6 +169,24 @@
   .track-artist { opacity: 0.7; }
 
   .hidden { display: none; }
+  /* responsive */
+  @media (max-width: 420px) {
+    .container { padding: 0; max-width: 100%; }
+    body { padding: 24px 16px 60px; }
+    .intro-text { font-size: 4pt; }
+    .track-info { font-size: 4pt; }
+    .header a { font-size: 10px; }
+    .track audio { height: 28px; }
+  }
+  @media (min-width: 768px) {
+    .container { max-width: 600px; }
+    body { padding: 60px 40px 100px; font-size: 6pt; }
+    .track-info { font-size: 6pt; }
+    .track audio { height: 36px; }
+  }
+  @media (min-width: 1200px) {
+    .container { max-width: 720px; }
+  }
 </style>
 </head>
 <body>
