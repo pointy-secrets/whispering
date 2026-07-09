@@ -120,8 +120,8 @@
   .filter-menu button.active { font-weight: 700; }
 
   .track-list {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 14px;
   }
 
@@ -129,7 +129,6 @@
     display: flex;
     flex-direction: column;
     gap: 3px;
-    grid-column: 1 / 2;
   }
 
   .track audio {
@@ -230,7 +229,7 @@
     filterMenu.innerHTML = '';
     // doorway link at top
     const door = document.createElement('button');
-    door.textContent = 'Doorway';
+    door.textContent = 'The Courtyard';
     door.style.fontWeight = '700';
     door.style.borderBottom = '0.5px solid #00C3E1';
     door.style.marginBottom = '4px';
@@ -241,7 +240,7 @@
     // artist filters
     const artists = [...new Set(tracks.map(t => t.artist || t.user))].sort();
     const allBtn = document.createElement('button');
-    allBtn.textContent = 'Winds';
+    allBtn.textContent = 'whisperers';
     allBtn.dataset.filter = 'all';
     allBtn.classList.add('active');
     filterMenu.appendChild(allBtn);
