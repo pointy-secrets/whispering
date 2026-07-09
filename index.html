@@ -1,127 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grass Labrynth</title>
-    <style>
-        body {
-            background-color: #ffffff;
-            color: #000000;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            /* Large top margin (150px), standard side margins (15%) */
-            padding: 150px 15% 60px 15%; 
-            font-size: 14px; 
-            min-height: 100vh;
-        }
-        .entry-container {
-            max-width: 100%;
-            margin: 0 auto;
-        }
-        .entry {
-            background-color: transparent;
-            border: none;
-            text-align: left;
-            padding: 0;
-            margin-bottom: 4em; 
-        }
-        .info-block {
-            margin-top: 12px;
-            margin-bottom: 0.5em;
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-        }
-        .row {
-            display: flex;
-            align-items: baseline;
-            margin-bottom: 8px; /* Slightly more space between rows */
-        }
-        .label {
-            color: #000000;
-            font-weight: normal;
-            text-transform: lowercase;
-            width: 50px; /* Increased width for larger gap between columns */
-            flex-shrink: 0;
-        }
-        .content {
-            color: #000000;
-            flex-grow: 1;
-        }
-        audio {
-            display: block;
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 0;
-            /* Opacity returned to normal (1.0) */
-            opacity: 1.0; 
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>whispering!</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-size: 5pt;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 80px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 380px;
+    position: relative;
+  }
+
+  .header {
+    margin-bottom: 28px;
+  }
+
+  .header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 2px;
+  }
+
+  .header .subtitle {
+    font-size: 11px;
+    color: #999;
+  }
+
+  /* hamburger filter */
+  .filter-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 0;
+  }
+
+  .filter-btn span {
+    display: block;
+    width: 14px;
+    height: 1.5px;
+    background: #bbb;
+    border-radius: 1px;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover span {
+    background: #00C3E1;
+  }
+
+  /* popup menu */
+  .filter-menu {
+    display: none;
+    position: absolute;
+    top: 32px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    min-width: 120px;
+    padding: 4px;
+    z-index: 10;
+  }
+
+  .filter-menu.open {
+    display: block;
+  }
+
+  .filter-menu button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 6px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 5pt;
+    border: none;
+    background: none;
+    color: #999;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.1s;
+  }
+
+  .filter-menu button:hover {
+    background: #f5f5f5;
+    color: #000;
+  }
+
+  .filter-menu button.active {
+    color: #00C3E1;
+    font-weight: 600;
+  }
+
+  .track-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .track {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .track audio {
+    width: 100%;
+    height: 32px;
+  }
+
+  .track-info {
+    font-size: 5pt;
+    line-height: 1.4;
+  }
+
+  .track-title {
+    font-weight: 500;
+    color: #000;
+  }
+
+  .track-artist {
+    color: #999;
+  }
+
+  .hidden { display: none; }
+</style>
 </head>
 <body>
 
-    <div class="entry-container">
-        <!-- HARDCODED DUMMY ENTRY -->
-        <div class="entry">
-            <audio controls>
-                <source src="fake-song.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            <div class="info-block">
-                <div class="row">
-                    <span class="label">what</span>
-                    <span class="content">Dummy Track Title</span>
-                </div>
-                <div class="row">
-                    <span class="label">who</span>
-                    <span class="content">Dummy User Name</span>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">
+  <div class="header">
+    <h1>whispering!</h1>
+    <div class="subtitle">improvisations</div>
+    <button class="filter-btn" id="filterBtn" aria-label="Filter by artist">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="filter-menu" id="filterMenu"></div>
+  </div>
 
-    <div id="song-list"></div>
+  <div class="track-list" id="trackList"></div>
+</div>
 
-    <script>
-        fetch('_data/songs.json')
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(songs => {
-                const container = document.getElementById('song-list');
-                container.innerHTML = '';
-                
-                if (!songs || songs.length === 0) {
-                    return;
-                }
+<script>
+  const list = document.getElementById('trackList');
+  const filterBtn = document.getElementById('filterBtn');
+  const filterMenu = document.getElementById('filterMenu');
+  let currentFilter = 'all';
+  let allTracks = [];
 
-                songs.reverse().forEach(song => {
-                    const entry = document.createElement('div');
-                    entry.className = 'entry';
-                    entry.innerHTML = `
-                        <audio controls>
-                            <source src="${song.audio}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                        <div class="info-block">
-                            <div class="row">
-                                <span class="label">what</span>
-                                <span class="content">${song.name}</span>
-                            </div>
-                            <div class="row">
-                                <span class="label">who</span>
-                                <span class="content">${song.user}</span>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(entry);
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    </script>
+  // build filter menu
+  filterBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    filterMenu.classList.toggle('open');
+  });
+
+  document.addEventListener('click', () => {
+    filterMenu.classList.remove('open');
+  });
+
+  filterMenu.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+      currentFilter = e.target.dataset.filter;
+      filterMenu.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      filterMenu.classList.remove('open');
+      render(currentFilter);
+    }
+  });
+
+  function render(filter) {
+    list.innerHTML = '';
+    const filtered = filter === 'all' ? allTracks : allTracks.filter(t => t.artist === filter);
+    filtered.forEach(t => {
+      const row = document.createElement('div');
+      row.className = 'track';
+
+      const audio = document.createElement('audio');
+      audio.controls = true;
+      audio.preload = 'none';
+      audio.src = t.src || t.audio;
+
+      const info = document.createElement('div');
+      info.className = 'track-info';
+      info.innerHTML = `<span class="track-title">${t.title || t.name}</span> <span class="track-artist">${t.artist || t.user}</span>`;
+
+      row.appendChild(audio);
+      row.appendChild(info);
+      list.appendChild(row);
+    });
+  }
+
+  function buildFilterMenu(tracks) {
+    filterMenu.innerHTML = '';
+    const artists = [...new Set(tracks.map(t => t.artist || t.user))].sort();
+    const allBtn = document.createElement('button');
+    allBtn.textContent = 'all artists';
+    allBtn.dataset.filter = 'all';
+    allBtn.classList.add('active');
+    filterMenu.appendChild(allBtn);
+    artists.forEach(a => {
+      const btn = document.createElement('button');
+      btn.textContent = a;
+      btn.dataset.filter = a;
+      filterMenu.appendChild(btn);
+    });
+  }
+
+  // fetch songs
+  fetch('_data/songs.json')
+    .then(r => {
+      if (!r.ok) throw new Error('Network response was not ok');
+      return r.json();
+    })
+    .then(songs => {
+      if (!songs || songs.length === 0) return;
+      allTracks = songs;
+      buildFilterMenu(songs);
+      render('all');
+    })
+    .catch(err => console.error('Error:', err));
+</script>
 </body>
-</html>   
+</html>
