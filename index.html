@@ -49,9 +49,18 @@
     font-size: 11px;
     color: #00C3E1;
   }
+  .site-logo {
+    font-style: italic;
+    font-weight: 200;
+    font-size: 72px;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: #00C3E1;
+    text-decoration: none;
+  }
 
   .header .active {
-    font-weight: 400;
+    font-weight: 200;
   }
 
   /* hamburger filter */
@@ -119,14 +128,6 @@
   .filter-menu button:hover { background: #f0fafc; }
   .filter-menu button.active { font-weight: 700; }
 
-  .intro-text {
-    font-size: 5pt;
-    line-height: 1.6;
-    color: #00C3E1;
-    margin-bottom: 24px;
-    text-align: left;
-  }
-
   .track-list {
     display: flex;
     flex-direction: column;
@@ -173,19 +174,22 @@
   @media (max-width: 420px) {
     .container { padding: 0; max-width: 100%; }
     body { padding: 24px 16px 60px; }
-    .intro-text { font-size: 4pt; }
     .track-info { font-size: 4pt; }
     .header a { font-size: 10px; }
     .track audio { height: 28px; }
-  }
-  @media (min-width: 768px) {
+  }  @media (min-width: 768px) {
     .container { max-width: 720px; }
     body { padding: 16px 12px 40px; font-size: 6pt; }
     .track-info { font-size: 6pt; }
-    .track audio { height: 36px; }
+    .track audio { height: 36px; width: 33.333%; max-width: 240px; }
   }
   @media (min-width: 1200px) {
-    .container { max-width: 720px; }
+    .container { max-width: 900px; }
+    .site-logo { font-size: 112px; }
+    body { font-size: 8pt; }
+    .track-info { font-size: 8pt; }
+    .track audio { height: 44px; width: 33.333%; max-width: 320px; }
+    .filter-menu button { font-size: 7pt; }
   }
 </style>
 </head>
@@ -193,18 +197,13 @@
 
 <div class="container">
   <div class="header">
-    <a href="/" class="active" style="font-style:italic;font-weight:400;font-size:24px">whispering!</a>
+    <a href="/" class="active site-logo">whispering!</a>
     <button class="filter-btn" id="filterBtn" aria-label="Filter by artist">
       <span></span><span></span><span></span>
     </button>
     <div class="filter-menu" id="filterMenu"></div>
   </div>
-
-  <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:24px">
-    <div class="intro-text">
-      we love improvising. we love improvising so much. its our life. So many times we beared the entire curvature of the our motivation itself by improvising. here is a space for finally honoring, exaulting, and celebrating our actual pace as and whenever it actually is whatever it is.
-    </div>
-  </div>
+</div>
 
   <div class="track-list" id="trackList"></div>
 </div>
@@ -249,7 +248,7 @@
 
       const info = document.createElement('div');
       info.className = 'track-info';
-      info.innerHTML = `<span class="track-title">${t.title || t.name}</span><span class="track-artist">${t.artist || t.user}</span>`;
+      info.innerHTML = `<span class="track-title">${t.title || t.name}</span><br><span class="track-artist">- ${t.artist || t.user}</span>`;
 
       row.appendChild(audio);
       row.appendChild(info);
