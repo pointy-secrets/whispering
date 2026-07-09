@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>manage</title>
+<title>whispering!</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
 
@@ -18,62 +18,42 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
+    padding: 40px 24px 60px;
   }
 
   a { color: #00C3E1; text-decoration: none; }
   a:hover { opacity: 0.7; }
 
-  .container { width: 100%; max-width: 360px; }
+  .container { width: 100%; max-width: 720px; position: relative; }
 
   .header {
     display: flex;
-    gap: 0;
-    margin-bottom: 32px;
-    font-size: 11px;
-    color: #00C3E1;
-    width: 100%;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
   }
-  .header a { font-size: 11px; color: #00C3E1; }
-  .site-logo {
+  .header .logo {
+    font-size: 24px;
     font-style: italic;
     font-weight: 400;
-    font-size: 12pt;
-    line-height: 1.5;
     color: #00C3E1;
-    text-decoration: none;
   }
-  .header .active { font-weight: 700; }
 
   .page-title {
-    font-size: 18px;
+    font-size: 12pt;
     font-weight: 700;
     color: #00C3E1;
     text-align: left;
     margin-bottom: 2px;
-    letter-spacing: -0.02em;
   }
 
-  .intro-text {
-    font-size: 11px;
-    color: #00C3E1;
-    opacity: 0.7;
-    text-align: left;
-    margin-bottom: 20px;
-    line-height: 1.4;
-  }
-
-    /* filter dropdown */
-  .filter-wrap {
-    position: relative;
-    margin-bottom: 24px;
-  }
+  .filter-wrap { position: relative; margin-bottom: 20px; }
   .filter-wrap select {
     width: 100%;
     padding: 8px 10px;
     font-family: 'Inter', sans-serif;
-    font-size: 11px;
+    font-size: 12pt;
     background: #f0fafc;
     border: 1px solid #00C3E1;
     border-radius: 6px;
@@ -89,30 +69,23 @@
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 9px;
+    font-size: 11pt;
     color: #00C3E1;
     pointer-events: none;
   }
 
-  .track-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
+  .track-list { display: flex; flex-direction: column; gap: 12px; }
   .track {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 8px;
   }
-
   .track-info {
-    font-size: 11px;
+    font-size: 12pt;
     line-height: 1.4;
     color: #00C3E1;
   }
-
   .track-title { font-weight: 500; }
   .track-artist { opacity: 0.7; }
 
@@ -124,7 +97,7 @@
     border-radius: 4px;
     background: #fff;
     color: #00C3E1;
-    font-size: 11px;
+    font-size: 11pt;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -133,30 +106,17 @@
   }
   .delete-btn:hover { background: #00C3E1; color: #fff; }
 
-
-  /* responsive */
-  @media (max-width: 420px) {
-    .container { padding: 0; max-width: 100%; }
-    body { padding: 24px 24px 60px; font-size: 12pt; }
-    .page-title { font-size: 12pt; }
-    .header a { font-size: 12pt; }
-  }
-  @media (min-width: 768px) {
-    .container { max-width: 720px; }
-    body { padding: 40px 16px 60px; }
-    .page-title { font-size: 20px; }
-  }
-  @media (min-width: 1200px) {
-    .container { max-width: 100%; }
-    .site-logo { font-size: 12pt; }
-    body { padding: 48px 24px 60px; font-size: 12pt; }
-    .page-title { font-size: 12pt; }
-  }
   #status {
     margin-top: 16px;
-    font-size: 11px;
+    font-size: 12pt;
     color: #00C3E1;
     text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 24px 16px 60px; }
+    .container { max-width: 100%; }
+    .header .logo { font-size: 20px; }
   }
 </style>
 </head>
@@ -164,10 +124,10 @@
 
 <div class="container">
   <div class="header">
-    <a href="/" class="site-logo">whispering!</a>
+    <a href="/" class="logo">whispering!</a>
   </div>
-  <h1 class="page-title">Deletion Page</h1>
 
+  <div class="page-title">Deletion Page</div>
 
   <div class="filter-wrap">
     <select id="artistFilter">
@@ -185,15 +145,16 @@ const REPO = 'whispering';
 const SONGS_PATH = '_data/songs.json';
 const TOKEN = sessionStorage.getItem('whisper_token') || '';
 
-if (!sessionStorage.getItem('whisper_token')) { window.location.href = '/upload/'; }
 const list = document.getElementById('trackList');
 const statusEl = document.getElementById('status');
 const filterSelect = document.getElementById('artistFilter');
 let allTracks = [];
 
+if (!TOKEN) { window.location.href = '/upload/'; }
+
 async function fetchSongs() {
-  const resp = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + SONGS_PATH, {
-    headers: { 'Authorization': 'Bearer ' + TOKEN, 'Accept': 'application/vnd.github+json' }
+  const resp = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${SONGS_PATH}`, {
+    headers: { 'Authorization': `Bearer ${TOKEN}`, 'Accept': 'application/vnd.github+json' }
   });
   if (!resp.ok) throw new Error('Failed to fetch');
   const data = await resp.json();
@@ -213,7 +174,7 @@ function renderList(filter) {
 
     const del = document.createElement('button');
     del.className = 'delete-btn';
-    del.textContent = '\u00D7';
+    del.textContent = '×';
     del.title = 'delete';
     del.addEventListener('click', () => deleteTrack(t));
 
@@ -247,14 +208,14 @@ async function deleteTrack(track) {
     const songsStr = JSON.stringify(allTracks, null, 2);
     const songsB64 = btoa(unescape(encodeURIComponent(songsStr)));
 
-    const songResp = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + SONGS_PATH, {
-      headers: { 'Authorization': 'Bearer ' + TOKEN, 'Accept': 'application/vnd.github+json' }
+    const songResp = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${SONGS_PATH}`, {
+      headers: { 'Authorization': `Bearer ${TOKEN}`, 'Accept': 'application/vnd.github+json' }
     });
     const songData = await songResp.json();
 
-    const resp = await fetch('https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/' + SONGS_PATH, {
+    const resp = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${SONGS_PATH}`, {
       method: 'PUT',
-      headers: { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
+      headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
       body: JSON.stringify({
         message: 'delete "' + (track.title || track.name) + '"',
         content: songsB64,
@@ -269,7 +230,6 @@ async function deleteTrack(track) {
     statusEl.textContent = 'deleted - whispering updates in ~1 min';
   } catch (err) {
     statusEl.textContent = 'error: ' + err.message;
-    // Re-fetch to restore state
     allTracks = await fetchSongs();
     renderList(filterSelect.value);
   }
