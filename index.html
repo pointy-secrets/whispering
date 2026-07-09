@@ -37,12 +37,15 @@
   .header {
     display: flex;
     gap: 0;
-    margin-bottom: 28px;
+    margin-bottom: 20px;
     font-size: 11px;
     color: #00C3E1;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
+    min-height: 80px;
+    position: relative;
   }
 
   .header a {
@@ -97,7 +100,7 @@
   .filter-menu {
     display: none;
     position: absolute;
-    top: 32px;
+    top: 36px;
     right: 0;
     background: #fff;
     border: 1px solid #00C3E1;
@@ -186,9 +189,9 @@
   @media (min-width: 1200px) {
     .container { max-width: 900px; }
     .site-logo { font-size: 112px; }
-    body { font-size: 8pt; }
+    body { padding: 48px 16px 60px; font-size: 8pt; }
     .track-info { font-size: 8pt; }
-    .track audio { height: 44px; width: 33.333%; max-width: 320px; }
+    .track audio { height: 44px; }
     .filter-menu button { font-size: 7pt; }
   }
 </style>
