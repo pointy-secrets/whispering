@@ -151,6 +151,10 @@
     font-size: 5pt;
     line-height: 1.4;
     color: #00C3E1;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
   }
 
   .track-title { font-weight: 500; }
@@ -213,7 +217,7 @@
 
       const info = document.createElement('div');
       info.className = 'track-info';
-      info.innerHTML = `<span class="track-title">${t.title || t.name}&nbsp; &nbsp;</span> <span class="track-artist">${t.artist || t.user}</span>`;
+      info.innerHTML = `<span class="track-title">${t.title || t.name}</span><span class="track-artist">${t.artist || t.user}</span>`;
 
       row.appendChild(audio);
       row.appendChild(info);
