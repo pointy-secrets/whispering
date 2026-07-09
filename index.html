@@ -97,13 +97,6 @@
     padding-bottom: 8px;
   }
 
-  .intro-text {
-    font-size: 12pt;
-    line-height: 1.6;
-    color: #00C3E1;
-    margin-bottom: 24px;
-  }
-
   .track-list {
     display: flex;
     flex-direction: column;
@@ -150,12 +143,7 @@
     </button>
     <div class="filter-menu" id="filterMenu"></div>
   </div>
-
-  <div class="intro-text">
-    we love improvising. we love improvising so much. its our life. So many times we beared the entire curvature of the our motivation itself by improvising. here is a space for finally honoring, exaulting, and celebrating our actual pace as and whenever it actually is whatever it is.
-  </div>
-
-  <div class="track-list" id="trackList"></div>
+<div class="track-list" id="trackList"></div>
 </div>
 
 <script>
@@ -166,7 +154,7 @@
   let allTracks = [];
 
   const door = document.createElement('button');
-  door.textContent = 'The Courtyard';
+  door.textContent = 'Doorway';
   door.style.fontWeight = '700';
   door.className = 'divider';
   door.addEventListener('click', () => { window.location.href = '/upload/'; });
@@ -201,7 +189,7 @@
   function buildFilterMenu(tracks) {
     const artists = [...new Set(tracks.map(t => t.artist || t.user))].sort();
     const allBtn = document.createElement('button');
-    allBtn.textContent = 'The whisperers';
+    allBtn.textContent = 'Voices';
     allBtn.dataset.filter = 'all';
     allBtn.classList.add('active');
     filterMenu.appendChild(allBtn);
