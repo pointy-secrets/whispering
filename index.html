@@ -51,7 +51,7 @@
   }
 
   .header .active {
-    font-weight: 700;
+    font-weight: 400;
   }
 
   /* hamburger filter */
@@ -163,7 +163,7 @@
 
 <div class="container">
   <div class="header">
-    <a href="/" class="active" style="font-style:italic">whispering!</a>
+    <a href="/" class="active" style="font-style:italic;font-weight:400">whispering!</a>
     <button class="filter-btn" id="filterBtn" aria-label="Filter by artist">
       <span></span><span></span><span></span>
     </button>
@@ -225,8 +225,8 @@
     filterMenu.innerHTML = '';
     // doorway link at top
     const door = document.createElement('button');
-    door.textContent = 'the doorway';
-    door.style.borderBottom = '1px solid #00C3E1';
+    door.textContent = 'Doorway';
+    door.style.borderBottom = '0.5px solid #00C3E1';
     door.style.marginBottom = '4px';
     door.style.paddingBottom = '8px';
     door.style.borderRadius = '0';
@@ -235,7 +235,7 @@
     // artist filters
     const artists = [...new Set(tracks.map(t => t.artist || t.user))].sort();
     const allBtn = document.createElement('button');
-    allBtn.textContent = 'all artists';
+    allBtn.textContent = 'Winds';
     allBtn.dataset.filter = 'all';
     allBtn.classList.add('active');
     filterMenu.appendChild(allBtn);
