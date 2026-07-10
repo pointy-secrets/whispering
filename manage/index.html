@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>whispering!</title>
+<title>whispering! — deletion page</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
 
@@ -14,6 +14,8 @@
     color: #00C3E1;
     font-family: 'Inter', sans-serif;
     font-size: 12pt;
+    font-weight: 300;
+    line-height: 1.5;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -36,208 +38,185 @@
   .header .logo {
     font-size: 24px;
     font-style: italic;
-    font-weight: 400;
+    font-weight: 300;
     color: #00C3E1;
+  }
+  .filter-btn {
+    background: none; border: none; cursor: pointer;
+    display: flex; flex-direction: column; gap: 3px; padding: 0;
+  }
+  .filter-btn span { display: block; width: 18px; height: 2px; background: #00C3E1; border-radius: 1px; }
+  .filter-menu {
+    display: none; position: absolute; top: 32px; right: 0;
+    background: #fff; border: 1px solid #00C3E1; border-radius: 8px;
+    min-width: 160px; padding: 6px; z-index: 10;
+  }
+  .filter-menu.open { display: block; }
+  .filter-menu button {
+    display: block; width: 100%; text-align: left; padding: 6px 10px;
+    font-family: 'Inter', sans-serif; font-size: 10pt; font-weight: 300;
+    border: none; background: none; color: #00C3E1; cursor: pointer; border-radius: 4px;
+  }
+  .filter-menu button:hover { background: #f0fafc; }
+
+  .title-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px;
+  }
+  .page-title { font-size: 12pt; font-weight: 300; opacity: 0.7; }
+  select.filter-select {
+    font-family: 'Inter', sans-serif; font-size: 10pt; font-weight: 300;
+    color: #00C3E1; background: #fff; border: 1px solid #00C3E1;
+    border-radius: 6px; padding: 4px 8px;
   }
 
-  .page-title {
-    font-size: 12pt;
-    font-weight: 700;
-    color: #00C3E1;
-    text-align: left;
-    margin-bottom: 2px;
-  }
+  .hairline { border: none; border-top: 1px solid rgba(0,195,225,0.25); margin: 12px 0; }
 
-  .filter-wrap { position: relative; margin-bottom: 20px; }
-  .filter-wrap select {
-    width: 100%;
-    padding: 8px 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 12pt;
-    background: #f0fafc;
-    border: 1px solid #00C3E1;
-    border-radius: 6px;
-    color: #00C3E1;
-    appearance: none;
-    -webkit-appearance: none;
-    cursor: pointer;
-    outline: none;
+  .song-list { display: flex; flex-direction: column; gap: 10px; }
+  .song-item {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    font-size: 12pt; font-weight: 300;
   }
-  .filter-wrap::after {
-    content: "\25BE";
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 11pt;
-    color: #00C3E1;
-    pointer-events: none;
-  }
-
-  .track-list { display: flex; flex-direction: column; gap: 12px; }
-  .track {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-  }
-  .track-info {
-    font-size: 12pt;
-    line-height: 1.4;
-    color: #00C3E1;
-  }
-  .track-title { font-weight: 500; }
-  .track-artist { opacity: 0.7; }
-
+  .song-meta { opacity: 0.7; }
   .delete-btn {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    border: 1px solid #00C3E1;
-    border-radius: 4px;
-    background: #fff;
-    color: #00C3E1;
-    font-size: 11pt;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
+    background: none; border: none; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 11pt; font-weight: 300;
+    color: #00C3E1; padding: 2px 6px;
   }
-  .delete-btn:hover { background: #00C3E1; color: #fff; }
+  .delete-btn:hover { opacity: 0.6; }
 
-  #status {
-    margin-top: 16px;
-    font-size: 12pt;
-    color: #00C3E1;
-    text-align: center;
-  }
-
-  @media (max-width: 600px) {
-    body { padding: 24px 16px 60px; }
-    .container { max-width: 100%; }
-    .header .logo { font-size: 20px; }
-  }
+  .status { margin-top: 16px; font-size: 12pt; font-weight: 300; }
+  .back-link { margin-top: 16px; font-size: 12pt; font-weight: 300; }
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="header">
     <a href="/" class="logo">whispering!</a>
+    <button class="filter-btn" id="filterBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="filter-menu" id="filterMenu">
+      <button id="uploadLink">upload recording</button>
+    </div>
   </div>
 
-  <div class="page-title">Deletion Page</div>
-
-  <div class="filter-wrap">
-    <select id="artistFilter">
+  <div class="title-row">
+    <span class="page-title">deletion page</span>
+    <select class="filter-select" id="artistFilter">
       <option value="all">voices</option>
     </select>
   </div>
-
-  <div class="track-list" id="trackList"></div>
-  <div id="status"></div>
+  <hr class="hairline">
+  <div class="song-list" id="songList"></div>
+  <div class="status" id="status"></div>
+  <div class="back-link"><a href="/">back to whispers</a></div>
 </div>
 
 <script>
-const OWNER = 'pointy-secrets';
-const REPO = 'whispering';
-const SONGS_PATH = '_data/songs.json';
-const TOKEN = sessionStorage.getItem('whisper_token') || '';
+  const TOKEN = sessionStorage.getItem('whisper_token');
+  if (!TOKEN) { window.location.href = '/upload/'; }
+  const REPO_OWNER = 'pointy-secrets';
+  const REPO_NAME = 'whispering';
+  const BRANCH = 'main';
+  const API = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents`;
 
-const list = document.getElementById('trackList');
-const statusEl = document.getElementById('status');
-const filterSelect = document.getElementById('artistFilter');
-let allTracks = [];
+  const filterBtn = document.getElementById('filterBtn');
+  const filterMenu = document.getElementById('filterMenu');
+  filterBtn.addEventListener('click', (e) => { e.stopPropagation(); filterMenu.classList.toggle('open'); });
+  document.addEventListener('click', () => filterMenu.classList.remove('open'));
+  filterMenu.addEventListener('click', (e) => e.stopPropagation());
+  document.getElementById('uploadLink').addEventListener('click', () => { window.location.href = '/upload/'; });
 
-if (!TOKEN) { window.location.href = '/upload/'; }
+  const songListEl = document.getElementById('songList');
+  const statusEl = document.getElementById('status');
+  const artistFilter = document.getElementById('artistFilter');
+  let allSongs = [];
+  let songsSha = null;
 
-async function fetchSongs() {
-  const resp = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${SONGS_PATH}`, {
-    headers: { 'Authorization': `Bearer ${TOKEN}`, 'Accept': 'application/vnd.github+json' }
-  });
-  if (!resp.ok) throw new Error('Failed to fetch');
-  const data = await resp.json();
-  return JSON.parse(atob(data.content));
-}
+  function toBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
 
-function renderList(filter) {
-  list.innerHTML = '';
-  const tracks = filter === 'all' ? allTracks : allTracks.filter(t => (t.artist || t.user) === filter);
-  tracks.forEach(t => {
-    const row = document.createElement('div');
-    row.className = 'track';
-
-    const info = document.createElement('div');
-    info.className = 'track-info';
-    info.innerHTML = '<span class="track-title">' + (t.title || t.name) + '</span> <span class="track-artist">' + (t.artist || t.user) + '</span>';
-
-    const del = document.createElement('button');
-    del.className = 'delete-btn';
-    del.textContent = '×';
-    del.title = 'delete';
-    del.addEventListener('click', () => deleteTrack(t));
-
-    row.appendChild(info);
-    row.appendChild(del);
-    list.appendChild(row);
-  });
-}
-
-function buildFilter() {
-  filterSelect.innerHTML = '<option value="all">voices</option>';
-  const artists = [...new Set(allTracks.map(t => t.artist || t.user))].sort();
-  artists.forEach(a => {
-    const opt = document.createElement('option');
-    opt.value = a;
-    opt.textContent = a;
-    filterSelect.appendChild(opt);
-  });
-}
-
-filterSelect.addEventListener('change', () => renderList(filterSelect.value));
-
-async function deleteTrack(track) {
-  if (!confirm('Delete "' + (track.title || track.name) + '" by ' + (track.artist || track.user) + '?')) return;
-
-  statusEl.textContent = 'deleting...';
-  const idx = allTracks.indexOf(track);
-  if (idx > -1) allTracks.splice(idx, 1);
-
-  try {
-    const songsStr = JSON.stringify(allTracks, null, 2);
-    const songsB64 = btoa(unescape(encodeURIComponent(songsStr)));
-
-    const songResp = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${SONGS_PATH}`, {
-      headers: { 'Authorization': `Bearer ${TOKEN}`, 'Accept': 'application/vnd.github+json' }
-    });
-    const songData = await songResp.json();
-
-    const resp = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${SONGS_PATH}`, {
-      method: 'PUT',
-      headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json' },
-      body: JSON.stringify({
-        message: 'delete "' + (track.title || track.name) + '"',
-        content: songsB64,
-        sha: songData.sha
-      })
-    });
-
-    if (!resp.ok) throw new Error('Delete failed');
-
-    buildFilter();
-    renderList(filterSelect.value);
-    statusEl.textContent = 'deleted - whispering updates in ~1 min';
-  } catch (err) {
-    statusEl.textContent = 'error: ' + err.message;
-    allTracks = await fetchSongs();
-    renderList(filterSelect.value);
+  async function loadSongs() {
+    try {
+      const res = await fetch(`${API}/_data/songs.json`, { headers: { 'Authorization': `Bearer ${TOKEN}` } });
+      if (!res.ok) throw new Error('failed to fetch');
+      const data = await res.json();
+      songsSha = data.sha;
+      allSongs = JSON.parse(atob(data.content));
+      populateFilter();
+      renderSongs();
+    } catch (e) {
+      statusEl.textContent = 'could not load: ' + e.message;
+    }
   }
-}
 
-fetchSongs()
-  .then(songs => { allTracks = songs || []; buildFilter(); renderList('all'); })
-  .catch(err => { statusEl.textContent = 'error: ' + err.message; });
+  function populateFilter() {
+    const artists = [...new Set(allSongs.map(s => s.artist || s.user))].sort();
+    artistFilter.innerHTML = '<option value="all">voices</option>';
+    artists.forEach(a => {
+      const opt = document.createElement('option');
+      opt.value = a; opt.textContent = a;
+      artistFilter.appendChild(opt);
+    });
+  }
+
+  function renderSongs() {
+    const filter = artistFilter.value;
+    const filtered = filter === 'all' ? allSongs : allSongs.filter(s => (s.artist || s.user) === filter);
+    songListEl.innerHTML = '';
+    filtered.forEach((song, idx) => {
+      const item = document.createElement('div');
+      item.className = 'song-item';
+      const meta = document.createElement('span');
+      meta.className = 'song-meta';
+      meta.textContent = `${song.title || song.name} — ${song.artist || song.user}`;
+      const del = document.createElement('button');
+      del.className = 'delete-btn';
+      del.textContent = '×';
+      del.addEventListener('click', () => deleteSong(idx, song));
+      item.appendChild(meta);
+      item.appendChild(del);
+      songListEl.appendChild(item);
+    });
+  }
+
+  artistFilter.addEventListener('change', renderSongs);
+
+  async function deleteSong(idx, song) {
+    if (!confirm(`delete "${song.title || song.name}"?`)) return;
+    try {
+      statusEl.textContent = 'deleting...';
+      const path = (song.src || '').replace(/^\//, '');
+      if (path) {
+        const fileRes = await fetch(`${API}/${path}`, { headers: { 'Authorization': `Bearer ${TOKEN}` } });
+        if (fileRes.ok) {
+          const fileData = await fileRes.json();
+          await fetch(`${API}/${path}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: 'delete audio', sha: fileData.sha, branch: BRANCH })
+          });
+        }
+      }
+      allSongs.splice(idx, 1);
+      const newContent = toBase64(JSON.stringify(allSongs, null, 2));
+      const jsonRes = await fetch(`${API}/_data/songs.json`, {
+        method: 'PUT',
+        headers: { 'Authorization': `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: 'remove from list', content: newContent, sha: songsSha, branch: BRANCH })
+      });
+      if (!jsonRes.ok) throw new Error('failed to update list');
+      const jsonData = await jsonRes.json();
+      songsSha = jsonData.sha;
+      statusEl.textContent = 'deleted';
+      populateFilter();
+      renderSongs();
+    } catch (e) {
+      statusEl.textContent = 'delete failed: ' + e.message;
+    }
+  }
+
+  loadSongs();
 </script>
 </body>
 </html>
