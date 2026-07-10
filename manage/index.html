@@ -152,12 +152,21 @@ a:hover { opacity: 0.7; }
 .drop-zone {
   border: 1px solid #00C3E1;
   border-radius: 8px;
-  padding: 24px;
+  height: 180px;
   text-align: center;
   cursor: pointer;
   font-size: 12pt;
   font-weight: 300;
   margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+.drop-zone .small-text {
+  font-size: 9pt;
+  opacity: 0.6;
 }
 .drop-zone.dragover { background: #f0fafc; }
 
