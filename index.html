@@ -14,6 +14,7 @@
     color: #00C3E1;
     font-family: 'Inter', sans-serif;
     font-size: 12pt;
+    font-weight: 300;
     line-height: 1.5;
     min-height: 100vh;
     display: flex;
@@ -42,7 +43,7 @@
   .header .logo {
     font-size: 24px;
     font-style: italic;
-    font-weight: 400;
+    font-weight: 300;
     color: #00C3E1;
   }
 
@@ -80,9 +81,10 @@
     display: block;
     width: 100%;
     text-align: left;
-    padding: 8px 10px;
+    padding: 6px 10px;
     font-family: 'Inter', sans-serif;
-    font-size: 12pt;
+    font-size: 10pt;
+    font-weight: 300;
     border: none;
     background: none;
     color: #00C3E1;
@@ -90,7 +92,7 @@
     border-radius: 4px;
   }
   .filter-menu button:hover { background: #f0fafc; }
-  .filter-menu button.active { font-weight: 700; }
+  .filter-menu button.active { color: #00C3E1; }
   .filter-menu .divider {
     border-bottom: 0.5px solid #00C3E1;
     margin-bottom: 4px;
@@ -120,10 +122,11 @@
     align-items: baseline;
     gap: 8px;
     font-size: 12pt;
+    font-weight: 300;
     color: #00C3E1;
   }
-  .track-title { font-weight: 500; }
-  .track-artist { opacity: 0.7; }
+  .track-title { font-weight: 300; }
+  .track-artist { opacity: 0.7; font-weight: 300; }
 
   @media (max-width: 600px) {
     body { padding: 24px 16px 60px; }
@@ -155,7 +158,6 @@
 
   const door = document.createElement('button');
   door.textContent = 'Doorway';
-  door.style.fontWeight = '700';
   door.className = 'divider';
   door.addEventListener('click', () => { window.location.href = '/upload/'; });
   filterMenu.appendChild(door);
