@@ -20,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 24px 2px 40px;
+  padding: 24px 80px 40px;
 }
 
 a { color: #00C3E1; text-decoration: none; }
@@ -28,7 +28,6 @@ a:hover { opacity: 0.7; }
 
 .container {
   width: 100%;
-  max-width: 100%;
   position: relative;
 }
 
@@ -238,19 +237,56 @@ select.filter-select {
 /* ===== DESKTOP-ONLY OVERRIDES (min-width: 601px) ===== */
 @media (min-width: 601px) {
   body {
-    padding: 24px 0px 40px;
+    padding: 24px 80px 40px;
   }
+
+  /* Hide hamburger, show filter-menu as horizontal nav bar */
+  .filter-btn { display: none; }
+  .filter-menu {
+    display: flex !important;
+    position: static;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px 16px;
+    border-top: 1px solid #00C3E1;
+    border-bottom: 1px solid #00C3E1;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    background: transparent;
+    min-width: auto;
+    padding: 12px 0 12px;
+    width: 100%;
+    margin-top: -8px;
+    margin-bottom: 12px;
+  }
+  .filter-menu button {
+    display: inline-block;
+    width: auto;
+    padding: 4px 0;
+    text-align: center;
+    flex: 1;
+    font-size: 10pt;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+  }
+  .filter-menu button:hover { background: transparent; opacity: 0.6; }
+  .filter-menu .divider {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .filter-menu .artist-item {
+    padding-left: 0;
+  }
+
   .track audio {
     width: 400px;
   }
   .track-list {
     gap: 16px;
-  }
-  .filter-menu {
-    top: 36px;
-  }
-  .filter-menu .artist-item {
-    padding-left: 28px;
   }
 }
 
@@ -260,7 +296,7 @@ select.filter-select {
   .header .logo { font-size: 10pt; }
 }
 @media (min-width: 1200px) {
-  body { padding: 32px 2px 40px; }
+  body { padding: 32px 80px 40px; }
 }
 
 </style>
