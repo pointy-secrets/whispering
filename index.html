@@ -20,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 40px 3px 60px;
+  padding: 24px 2px 40px;
 }
 
 a { color: #00C3E1; text-decoration: none; }
@@ -28,6 +28,7 @@ a:hover { opacity: 0.7; }
 
 .container {
   width: 100%;
+  max-width: 100%;
   position: relative;
 }
 
@@ -115,7 +116,7 @@ a:hover { opacity: 0.7; }
 }
 
 .track audio {
-  width: 300px;
+  width: 100%;
   max-width: 100%;
   height: 36px;
 }
@@ -234,13 +235,32 @@ select.filter-select {
 
 .back-link { margin-top: 16px; font-size: 10pt; font-weight: 200; }
 
+/* ===== DESKTOP-ONLY OVERRIDES (min-width: 601px) ===== */
+@media (min-width: 601px) {
+  body {
+    padding: 24px 0px 40px;
+  }
+  .track audio {
+    width: 400px;
+  }
+  .track-list {
+    gap: 16px;
+  }
+  .filter-menu {
+    top: 36px;
+  }
+  .filter-menu .artist-item {
+    padding-left: 28px;
+  }
+}
+
 @media (max-width: 600px) {
-  body { padding: 24px 16px 60px; }
+  body { padding: 24px 16px 40px; }
   .container { max-width: 100%; }
   .header .logo { font-size: 10pt; }
 }
 @media (min-width: 1200px) {
-  body { padding: 48px 3px 60px; }
+  body { padding: 32px 2px 40px; }
 }
 
 </style>
