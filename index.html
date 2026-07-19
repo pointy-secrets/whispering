@@ -32,237 +32,97 @@ a:hover { opacity: 0.7; }
   position: relative;
 }
 
-.header {
+/* Header blocks */
+.logo-block,
+.filter-btn-block {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  position: relative;
+  justify-content: center;
+  /* size will be set by content */
 }
-
-.header .logo {
-  font-size: 30pt; /* 3x larger */
+.logo-block {
+  /* header text */
+}
+.logo-block .logo {
+  font-size: var(--font-size-display);
   font-style: italic;
-  font-weight: 200;
-  color: #00C3E1;
+  font-weight: var(--font-weight-base);
+  color: var(--color-primary);
+  margin: 0;
 }
 
-/* Full-width hairline under the whispering! logo */
-.logo-rule {
+/* Divider */
+.divider-block {
   width: 100%;
-  border: none;
-  border-top: 1px solid rgba(0,195,225,0.25);
+  height: 1px;
+  background: rgba(0,195,225,0.25);
   margin: 20px 0 0;
 }
 
-.filter-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 0;
-}
-.filter-btn span {
-  display: block;
-  width: 18px;
-  height: 1px;
-  background: #00C3E1;
-  border-radius: 1px;
+/* Track list container */
+.tracks-block {
+  /* content will be inserted via JS */
 }
 
-.filter-menu {
-  display: none;
-  position: absolute;
-  top: 32px;
-  right: 0;
-  background: #ffffff;
-  border: 1px solid #00C3E1;
-  border-radius: 8px;
-  min-width: 160px;
-  padding: 6px;
-  z-index: 10;
+/* Base block styling for edit mode */
+.block {
+  position: relative;
+  /* default margin */
+  margin: 8px 0;
 }
-.filter-menu.open { display: block; }
-.filter-menu button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 6px 10px;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 10pt;
-  font-weight: 200;
-  border: none;
-  background: none;
-  color: #00C3E1;
-  cursor: pointer;
-  border-radius: 4px;
-}
-.filter-menu button:hover { background: #f0fafc; }
-.filter-menu button.active { color: #00C3E1; }
-.filter-menu .divider {
-  border-bottom: 0.5px solid #00C3E1;
-  margin-bottom: 4px;
-  padding-bottom: 8px;
-}
-.filter-menu .artist-item {
-  padding-left: 28px;
+.block-content {
+  /* inner content */
 }
 
-.track-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding-top: 54px;
-}
-
-.track {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.track audio {
-  width: 300px;
-  max-width: 100%;
-  height: 36px;
-}
-
-.track-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-left: 10px;
-  font-size: 10pt;
-  font-weight: 200;
-  color: #00C3E1;
-}
-.track-title { font-weight: 200; }
-.track-artist { opacity: 0.7; font-weight: 200; }
-
-.form-group { margin-bottom: 16px; }
-.form-group label {
-  display: block;
-  font-size: 10pt;
-  font-weight: 200;
-  margin-bottom: 6px;
-}
-.form-group input[type=\"text\"] {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #00C3E1;
-  border-radius: 6px;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 10pt;
-  font-weight: 200;
-  color: #00C3E1;
-  background: #ffffff;
-}
-.form-group input::placeholder { color: #00C3E1; opacity: 0.5; }
-
-.drop-zone {
-  border: 1px solid #00C3E1;
-  border-radius: 8px;
-  height: 180px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 10pt;
-  font-weight: 200;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-}
-.drop-zone .small-text {
-  font-size: 9pt;
-  opacity: 0.6;
-}
-.drop-zone.dragover { background: #f0fafc; }
-
-button.submit-btn {
-  width: 100%;
-  padding: 10px;
-  background: #00C3E1;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 10pt;
-  font-weight: 200;
-  cursor: pointer;
-}
-button.submit-btn:hover { opacity: 0.85; }
-button.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-.status { margin-top: 12px; font-size: 10pt; font-weight: 200; }
-
-.title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-.page-title { font-size: 10pt; font-weight: 200; opacity: 0.7; }
-select.filter-select {
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 10pt;
-  font-weight: 200;
-  color: #00C3E1;
-  background: #ffffff;
-  border: 1px solid #00C3E1;
-  border-radius: 6px;
-  padding: 4px 8px;
-}
-
-.hairline { border: none; border-top: 1px solid rgba(0,195,225,0.25); margin: 12px 0; }
-
-.song-list { display: flex; flex-direction: column; gap: 10px; }
-.song-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  font-size: 10pt;
-  font-weight: 200;
-}
-.song-meta { opacity: 0.7; }
-.delete-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 11pt;
-  font-weight: 200;
-  color: #00C3E1;
-  padding: 2px 6px;
-}
-.delete-btn:hover { opacity: 0.6; }
-
-.back-link { margin-top: 16px; font-size: 10pt; font-weight: 200; }
-
-/* ===== LAYOUT EDIT MODE ===== */
-.layout-edit-mode .edit-handle {
-  display: block !important;
-  opacity: 0.7;
-}
-.layout-edit-mode .edit-handle:hover {
-  opacity: 1;
-}
+/* Edit mode specific styles */
 .layout-edit-mode .block {
   border: 2px dashed rgba(0,195,225,0.3);
   border-radius: 4px;
   background: rgba(0,195,225,0.05);
 }
-.layout-edit-mode .block-header {
-  padding: 4px 8px;
-  background: rgba(0,195,225,0.1);
-  margin: -8px -8px 8px -8px;
-  font-size: 9pt;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.layout-edit-mode .block-content {
+  padding: 8px;
+}
+.layout-edit-mode .resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  background: rgba(0,195,225,0.5);
+  cursor: se-resize;
+  z-index: 2;
+}
+.layout-edit-mode .drag-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  background: rgba(0,195,225,0.5);
+  cursor: move;
+  z-index: 2;
+}
+.layout-edit-mode .grid-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.layout-edit-mode .grid-overlay .grid-line {
+  position: absolute;
+  background: rgba(0,195,225,0.2);
+}
+.layout-edit-mode .grid-overlay .grid-line.v {
+  width: 1px;
+  height: 100%;
+}
+.layout-edit-mode .grid-overlay .grid-line.h {
+  height: 1px;
+  width: 100%;
 }
 
 /* Edit mode controls */
@@ -303,30 +163,42 @@ select.filter-select {
   .track audio {
     width: 400px;
   }
-  .track-list {
-    gap: 16px;
-  }
 }
 
+/* ===== MOBILE ===== */
 @media (max-width: 600px) {
   body { padding: 10px 3px 40px 3px; }
   .container { max-width: 100%; }
-  .header .logo { font-size: 30pt; }
 }
 @media (min-width: 1200px) {
   body { padding: 10px 3px 40px 3px; }
 }
 
+/* Ensure the header elements display inline in normal mode */
+.header-normal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 </style>
 </head>
 <body class="whisper-body">
 
 <div class="container">
-  <div class="header">
-    <div class="block block-header" data-block="header">
-      <div class="edit-handle">☰</div>
+  <div class="header-normal">
+    <!-- Logo block -->
+    <div class="block logo-block" data-block="logo">
+      <div class="drag-handle"></div>
       <div class="block-content">
         <a href="/" class="logo">whispering!</a>
+      </div>
+      <div class="resize-handle"></div>
+    </div>
+    <!-- Filter button block -->
+    <div class="block filter-btn-block" data-block="filter">
+      <div class="drag-handle"></div>
+      <div class="block-content">
         <button class="filter-btn" id="filterBtn" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
@@ -334,15 +206,22 @@ select.filter-select {
           <button id="uploadLink">upload recording</button>
         </div>
       </div>
+      <div class="resize-handle"></div>
     </div>
   </div>
 
-  <hr class="logo-rule block block-divider" data-block="divider">
-  <div class="edit-handle">☰</div>
+  <!-- Divider block -->
+  <div class="block divider-block" data-block="divider">
+    <div class="drag-handle"></div>
+    <div class="block-content"></div>
+    <div class="resize-handle"></div>
+  </div>
 
-  <div class="track-list block block-tracks" data-block="tracks">
-    <div class="edit-handle">☰</div>
-    <div id="trackList"></div>
+  <!-- Track list block -->
+  <div class="block tracks-block" data-block="tracks">
+    <div class="drag-handle"></div>
+    <div class="block-content" id="trackList"></div>
+    <div class="resize-handle"></div>
   </div>
 </div>
 
@@ -373,13 +252,52 @@ select.filter-select {
   if (isEditMode) {
     document.body.classList.add('layout-edit-mode');
     layoutControls.style.display = 'block';
+    initGridOverlay();
   }
   
-  // Initialize drag and drop for blocks
-  function initDragDrop() {
+  // Grid overlay
+  function initGridOverlay() {
+    const container = document.querySelector('.container');
+    const overlay = document.createElement('div');
+    overlay.className = 'grid-overlay';
+    container.appendChild(overlay);
+    updateGrid();
+    window.addEventListener('resize', updateGrid);
+  }
+  
+  function updateGrid() {
+    const container = document.querySelector('.container');
+    const overlay = container.querySelector('.grid-overlay');
+    if (!overlay) return;
+    overlay.innerHTML = '';
+    const rect = container.getBoundingClientRect();
+    const gridSize = 20; // 20px grid
+    const cols = Math.ceil(rect.width / gridSize);
+    const rows = Math.ceil(rect.height / gridSize);
+    for (let i = 0; i <= cols; i++) {
+      const line = document.createElement('div');
+      line.className = 'grid-line v';
+      line.style.left = (i * gridSize) + 'px';
+      overlay.appendChild(line);
+    }
+    for (let i = 0; i <= rows; i++) {
+      const line = document.createElement('div');
+      line.className = 'grid-line h';
+      line.style.top = (i * gridSize) + 'px';
+      overlay.appendChild(line);
+    }
+  }
+  
+  // Snap value to grid
+  function snapToGrid(value, gridSize = 20) {
+    return Math.round(value / gridSize) * gridSize;
+  }
+  
+  // Make blocks draggable and resizable
+  function initInteractions() {
     const blocks = document.querySelectorAll('.block');
     blocks.forEach(block => {
-      // Make block draggable
+      // Make draggable
       block.setAttribute('draggable', 'true');
       
       block.addEventListener('dragstart', (e) => {
@@ -399,6 +317,58 @@ select.filter-select {
         } else {
           block.parentNode.insertBefore(block, afterElement);
         }
+        // Snap to grid after drop
+        requestAnimationFrame(() => snapBlockToGrid(block));
+      });
+      
+      // Resize handle
+      const resizeHandle = block.querySelector('.resize-handle');
+      const dragHandle = block.querySelector('.drag-handle');
+      let resizing = false;
+      let startX, startY, startWidth, startHeight;
+      
+      resizeHandle.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
+        resizing = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        const rect = block.getBoundingClientRect();
+        startWidth = rect.width;
+        startHeight = rect.height;
+        document.body.style.cursor = 'se-resize';
+        block.classList.add('resizing');
+      });
+      
+      document.addEventListener('mousemove', (e) => {
+        if (!resizing) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        let newWidth = startWidth + dx;
+        let newHeight = startHeight + dy;
+        // Minimum size
+        newWidth = Math.max(40, newWidth);
+        newHeight = Math.max(40, newHeight);
+        // Snap to grid
+        newWidth = snapToGrid(newWidth);
+        newHeight = snapToGrid(newHeight);
+        block.style.width = newWidth + 'px';
+        block.style.height = newHeight + 'px';
+      });
+      
+      document.addEventListener('mouseup', (e) => {
+        if (resizing) {
+          resizing = false;
+          document.body.style.cursor = 'default';
+          block.classList.remove('resizing');
+        }
+      });
+      
+      // Drag handle for moving (optional, but we already have dragstart on block)
+      // We'll also allow dragging from the drag handle area for clarity
+      dragHandle.addEventListener('mousedown', (e) => {
+        e.stopPropagation();
+        // Trigger dragstart on the block
+        block.dispatchEvent(new Event('dragstart'));
       });
     });
   }
@@ -417,6 +387,31 @@ select.filter-select {
     }, { offset: Number.NEGATIVE_INFINITY }).element;
   }
   
+  function snapBlockToGrid(block) {
+    const rect = block.getBoundingClientRect();
+    const container = document.querySelector('.container');
+    const containerRect = container.getBoundingClientRect();
+    const gridSize = 20;
+    
+    // Snap position
+    let newLeft = rect.left - containerRect.left;
+    let newTop = rect.top - containerRect.top;
+    newLeft = snapToGrid(newLeft, gridSize);
+    newTop = snapToGrid(newTop, gridSize);
+    
+    // Apply
+    block.style.left = newLeft + 'px';
+    block.style.top = newTop + 'px';
+    
+    // Ensure size is snapped (already done during resize, but just in case)
+    let width = rect.width;
+    let height = rect.height;
+    width = snapToGrid(width, gridSize);
+    height = snapToGrid(height, gridSize);
+    block.style.width = width + 'px';
+    block.style.height = height + 'px';
+  }
+  
   // Save layout to localStorage
   function saveLayout() {
     const order = [];
@@ -424,10 +419,12 @@ select.filter-select {
       order.push(block.dataset.block);
     });
     localStorage.setItem('whisperingLayout', JSON.stringify(order));
+    // Also save positions and sizes? For simplicity, we only save order.
+    // For a more advanced version, we could save rects.
     alert('Layout saved! Refresh to see changes.');
   }
   
-  // Load layout from localStorage
+  // Load layout from localStorage (order only)
   function loadLayout() {
     const saved = localStorage.getItem('whisperingLayout');
     if (saved) {
@@ -445,6 +442,7 @@ select.filter-select {
   // Reset layout to default
   function resetLayout() {
     localStorage.removeItem('whisperingLayout');
+    localStorage.removeItem('whisperingBlockStates'); // if we saved states
     alert('Layout reset to default. Refresh to see changes.');
     window.location.reload();
   }
@@ -455,7 +453,7 @@ select.filter-select {
   
   // Initialize
   if (isEditMode) {
-    initDragDrop();
+    initInteractions();
   } else {
     // On normal view, apply saved layout if exists
     loadLayout();
