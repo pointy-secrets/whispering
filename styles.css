@@ -9,7 +9,7 @@
 body.whisper-body {
     background-color: #ffffff;
     color: var(--color-text);
-    font-family: sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: var(--font-size-body);
     font-weight: var(--font-weight-base);
     margin: 0;
@@ -32,6 +32,7 @@ body.whisper-body {
     margin: 0 0 2rem 0;
     color: var(--color-text);
     line-height: 0.9;
+    letter-spacing: -0.02em;
 }
 
 .whisper-nav {
@@ -43,11 +44,11 @@ body.whisper-body {
     text-decoration: none;
     font-weight: var(--font-weight-base);
     margin: 0 15px;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s ease;
 }
 
 .whisper-link:hover {
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 .audio-list {
@@ -55,11 +56,11 @@ body.whisper-body {
 }
 
 .audio-entry {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .whisper-footer {
     font-size: 0.8rem;
-    opacity: 0.6;
+    opacity: 0.5;
     margin-top: 5rem;
 }
