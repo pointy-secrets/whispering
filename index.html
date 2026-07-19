@@ -1,27 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>whispering.living</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>whispering!</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body class="whisper-body">
-    <div class="whisper-container">
-        <h1 class="whisper-title">whispering!</h1>
-        
-        <div class="whisper-nav">
-            <a href="upload/index.html" class="whisper-link">Voices</a>
-            <a href="manage/index.html" class="whisper-link">Doorway</a>
-        </div>
 
-        <div class="audio-list">
-            <div class="audio-entry"><a href="audio/Pianoo1.m4a" class="whisper-link">Pianoo1.m4a</a></div>
-        </div>
+<main class="editorial">
 
-        <footer class="whisper-footer">
-            made by pointy secrets
-        </footer>
-    </div>
+  <header class="masthead">
+    <a href="/" class="wordmark">whispering!</a>
+    <button class="filter-btn" id="filterBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="filter-menu" id="filterMenu"></nav>
+  </header>
+
+  <section class="lede">
+    <p class="kicker">a quiet index of voices</p>
+    <h1 class="whisper-title">whispering!</h1>
+    <p class="standfirst">An editorial space for sound. Scroll the index, open a voice, step through the doorway to leave one of your own.</p>
+  </section>
+
+  <section class="index-rail" id="trackList" aria-label="Voices"></section>
+
+  <footer class="colophon">
+    <span>made by pointy secrets</span>
+    <a href="/upload/">Doorway ↗</a>
+  </footer>
+
+</main>
+
+<script>
+  window.addEventListener('error', () => alert('Something went wrong. Please message mulu on Signal about this issue.'));
+  window.addEventListener('unhandledrejection', () => alert('Something went wrong. Please message mulu on Signal about this issue.'));
+
+  const list = document.getElementById('trackList');
+  const filterBtn = document.getElementById('filterBtn');
+  const filterMenu = document.getElementById('filterMenu');
+  let currentFilter = 'all';
+  let allTracks = [];
+
+  const door = document.createElement('button');
+  door.textContent = 'Doorway';
+  door.className = 'menu-door';
+  door.addEventListener('click', () => { window.location.href = '/upload/'; });
+  filterMenu.appendChild(door);
+
+  filterBtn.addEventListener('click', (e) => { e.stopPropagation(); filterMenu.classList.toggle('open'); });
+  document.addEventListener('click', () => filterMenu.classList.remove('open'));
+  filterMenu.addEventListener('click', (e) => e.stopPropagation());
+
+  function render(filter) {
+    list.innerHTML = '';
+    const filtered = filter === 'all' ? allTracks : allTracks.filter(t => (t.artist || t.user) === filter);
+    filtered.forEach(t => {
+      const row = document.createElement('article');
+      row.className = 'voice-row';
+      const audio = document.createElement('audio');
+      audio.controls = true; audio.preload = 'none'; audio.src = t.src || t.audio;
+      const info = document.createElement('div');
+      info.className = 'voice-meta';
+      info.innerHTML = `<span class="voice-title">${t.title || t.name}</span><span class="voice-artist">${t.artist || t.user}</span>`;
+      row.appendChild(audio);
+      row.appendChild(info);
+      list.appendChild(row);
+    });
+  }
+
+  function buildFilterMenu(tracks) {
+    const artists = [...new Set(tracks.map(t => t.artist || t.user))].sort();
+    const allBtn = document.createElement('button');
+    allBtn.textContent = 'Voices'; allBtn.dataset.filter = 'all'; allBtn.classList.add('active');
+    filterMenu.appendChild(allBtn);
+    artists.forEach(a => {
+      const btn = document.createElement('button');
+      btn.textContent = a; btn.dataset.filter = a; btn.classList.add('menu-artist');
+      filterMenu.appendChild(btn);
+    });
+  }
+
+  filterMenu.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON' && e.target.dataset.filter) {
+      currentFilter = e.target.dataset.filter;
+      filterMenu.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      filterMenu.classList.remove('open');
+      render(currentFilter);
+    }
+  });
+
+  fetch('_data/songs.json')
+    .then(r => { if (!r.ok) throw new Error('Network'); return r.json(); })
+    .then(songs => { if (!songs || !songs.length) return; allTracks = songs; buildFilterMenu(songs); render('all'); })
+    .catch(err => console.error('Error:', err));
+</script>
 </body>
 </html>
