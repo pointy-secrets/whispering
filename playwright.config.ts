@@ -1,0 +1,1 @@
+import { defineConfig, devices } from '@playwright/test'; export default defineConfig({ use: { headless: false }, projects: [{ name: 'brave', use: { ...devices['Desktop Chrome'], executablePath: '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser' } }] });
