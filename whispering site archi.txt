@@ -1,0 +1,71 @@
+WHISPERING SITE — AI CONTEXT FILE
+==================================
+Repo: github.com/pointy-secrets/whispering  (branch: main)
+Live: whispering.living  (GitHub Pages, returns 200)
+Use pointy-secrets/whispering.
+
+DESIGN INTENT
+- Light font-weights only. No bold. weight_all = 200.
+- Accent color cyan #00C3E1 (color.primary).
+- Desktop side margin = 5px (spacing.margin_side). Mobile margin = 16px.
+- Drop zone hover = #f0fafc (color.drop_zone_hover).
+
+DESIGN TOKEN SYSTEM (single source of truth)
+- File: _design/tokens.json
+- REAL keys:
+  font.* = size_body (pt), size_logo, size_logo_mobile, size_filter_menu, size_manage_title, weight_all
+  color.* = primary #00C3E1, background #ffffff, opacity_muted 0.7, drop_zone_hover #f0fafc
+  spacing.* = margin_side 5px, margin_side_mobile 16px, margin_top_desktop 40px, logo_rule_margin_top 0
+- IMPORTANT: body font size is font.size_body (e.g. "10pt"). There is NO key called "font_scale". To make text bigger, edit font.size_body.
+- Workflow:
+  1. edit tokens.json
+  2. python3 _design/apply_tokens.py
+  3. python3 _design/validate_design.py   (exits 1 if any token missing from any page)
+  4. bash /root/deploy_guardrails.sh      (pre-push checker, fails closed)
+  5. if upload page changed: re-encrypt + bash /root/audit_staticrypt.sh
+  6. push
+
+DEPLOY GUARDRAILS (bash /root/deploy_guardrails.sh) — what it actually checks
+- Main page (new-index.html): no bold/heavy font-weight; light weight present; 24px margin referenced; 'Voices' + 'Doorway' present.
+- Manage page (manage-form-plain.html): no bold; reads sessionStorage.getItem('whisper_token'); NO github_pat_ hardcoded.
+- Upload source (upload-form-plain.html): contains the token string; sets sessionStorage.setItem('whisper_token'); no bold.
+- Upload encrypted (encrypted/upload-form-plain.html): runs audit_staticrypt.sh internally; fails if audit fails.
+- Design token consistency: runs python3 _design/validate_design.py.
+- Token validity: curls GitHub API with the token; expects 200. Exits 1 if token invalid.
+- Result: "ALL GUARDRAILS PASSED" (exit 0) or "GUARDRAILS FAILED" (exit 1). Do NOT push on failure.
+
+STATICRYPT AUDIT (bash /root/audit_staticrypt.sh FILE TITLE PLACEHOLDER PASSWORD)
+Checks the encrypted upload page:
+  1. password must NOT appear in plaintext (0 matches)
+  2. placeholder must be generic (NOT the password) — use e.g. "password" or "enter password", never the real password
+  3. <title> must equal expected TITLE
+  4. custom cyan #00C3E1 present
+  5. Inter font present
+Exits 1 on any failure.
+
+SECURITY / PAT ISSUE (critical lesson)
+- The github_pat_ token was written into upload-form-plain.html, which gets pushed to a PUBLIC repo.
+- GitHub auto-revokes tokens found in public repos regardless of expiry setting. The token is now DEAD (API returns 401 Bad credentials).
+- The token string hardcoded in deploy_guardrails.sh is github_pat_11CHEUL3Y0DQ3zF0W3KRjo and is only 33 chars (truncated/placeholder). Do not trust it.
+- FIX: issue a NEW PAT with repo scope. Use it only at push time via env var or a GitHub Actions secret. NEVER commit raw tokens to the public repo.
+- The token in code is read as github_pat_ + value and stored in sessionStorage as 'whisper_token' so the upload page can auth to GitHub API at runtime. Bad pattern (leaks to public JS). Better: proxy uploads or use a scoped deploy key.
+
+CURRENT STATE / PENDING WORK (as of last session)
+
+-  uploading a file retuns error. files cant be uploaded
+- deletion page displays error cant load content 
+
+KNOWN GOTCHAS
+- macOS grep does NOT support -P (PCRE). Use grep -oE 'github_pat_[A-Za-z0-9_]*' instead.
+- Ruby is NOT installed on the VM, so ruby _design/generate_css.rb cannot run there. The encrypted/upload-form-plain.html already exists from a prior build; copy it to upload/index.html for deployment.
+- Stored push JSONs (_push_main.json etc.) are STALE: sha 9b5c7aac... does not match live index.html sha fa832a4... and path field is null. Do not reuse them blindly.
+- Live file SHAs (GitHub, main): index.html=fa832a4bd210e3cc62cec87890eef887b53551f6, upload/index.html=7f48098bdd83b7d8a454fbd72c7946da8e38d76d, manage/index.html=c4b18d276c7df840dbf9fc0db8f1cbd19cf306bb
+
+RECOMMENDED SETUP FOR CONTINUED DEV
+
+- Work locally with your own logged-in GitHub — avoids the dead VM token entirely.
+- CI runs guardrails automatically on push. (evaluate if these gaurdrails scripts are industry standard to prevent breaking key functions or pushing broken site. how can process be edited for stability.
+
+QUICK LOCAL TEST AFTER PUSH
+  git pull origin main
+  curl -s -o /dev/null -w "%{http_code}\n" https://whispering.living/

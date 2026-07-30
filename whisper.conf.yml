@@ -1,0 +1,17 @@
+model: ollama_chat/qwen2.5-coder:7b
+weak-model: ollama_chat/llama3.2
+editor-model: ollama_chat/llama3.2
+analytics-disable: true
+pretty: true
+dark-mode: true
+auto-commits: true
+dirty-commits: true
+attribute-author: true
+attribute-committer: true
+gitignore: true
+restore-chat-history: true
+auto-test: true
+test-cmd: npm test
+auto-lint: true
+read:
+  - /Users/Lucas/code-projects/vm for ai commands/AGENTS.md
