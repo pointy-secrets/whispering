@@ -521,16 +521,8 @@ select.filter-select {
 
 <hr class="logo-rule">
 
-  <div class="title-row">
-    <span class="page-title">deletion page</span>
-    <select class="filter-select" id="artistFilter">
-      <option value="all">voices</option>
-    </select>
-  </div>
-  <hr class="hairline">
   <div class="song-list" id="songList"></div>
   <div class="status" id="status"></div>
-  <div class="back-link"><a href="/">back to whispers</a></div>
 </div>
 
 <script>
@@ -559,7 +551,6 @@ select.filter-select {
 
   const songListEl = document.getElementById('songList');
   const statusEl = document.getElementById('status');
-  const artistFilter = document.getElementById('artistFilter');
   let allSongs = [];
   let songsSha = null;
 
@@ -572,28 +563,15 @@ select.filter-select {
       const data = await res.json();
       songsSha = data.sha;
       allSongs = JSON.parse(atob(data.content));
-      populateFilter();
       renderSongs();
     } catch (e) {
       statusEl.textContent = 'could not load: ' + e.message;
     }
   }
 
-  function populateFilter() {
-    const artists = [...new Set(allSongs.map(s => s.artist || s.user))].sort();
-    artistFilter.innerHTML = '<option value="all">voices</option>';
-    artists.forEach(a => {
-      const opt = document.createElement('option');
-      opt.value = a; opt.textContent = a;
-      artistFilter.appendChild(opt);
-    });
-  }
-
   function renderSongs() {
-    const filter = artistFilter.value;
-    const filtered = filter === 'all' ? allSongs : allSongs.filter(s => (s.artist || s.user) === filter);
     songListEl.innerHTML = '';
-    filtered.forEach((song, idx) => {
+    allSongs.forEach((song, idx) => {
       const item = document.createElement('div');
       item.className = 'song-item';
       const meta = document.createElement('span');
@@ -608,8 +586,6 @@ select.filter-select {
       songListEl.appendChild(item);
     });
   }
-
-  artistFilter.addEventListener('change', renderSongs);
 
   async function deleteSong(idx, song) {
     if (!confirm(`delete "${song.title || song.name}"?`)) return;
@@ -638,7 +614,6 @@ select.filter-select {
       const jsonData = await jsonRes.json();
       songsSha = jsonData.sha;
       statusEl.textContent = 'deleted';
-      populateFilter();
       renderSongs();
     } catch (e) {
       statusEl.textContent = 'delete failed: ' + e.message;
