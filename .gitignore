@@ -1,1 +1,28 @@
 .aider*
+.DS_Store
+
+# Local tooling config
+.opencode/
+node_modules/
+package-lock.json
+package.json
+
+# Local secrets / tokens
+~/.gh_token
+.gh_token
+
+# Local MCP / inference config (localhost URLs)
+opencode.json
+mcp-servers.yaml.txt
+projects/
+
+# VM artifact (points at /code-projects/operating-system/guardrails.sh)
+git/
+
+# Build/staging artifacts
+build-safe/
+*.decrypted.html
+encrypted_output/
+
+# Design token junk (kept only in tooling/_design)
+styles.css

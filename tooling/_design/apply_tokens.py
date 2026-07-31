@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Apply tokens.json CSS to all three pages. Idempotent — safe to run multiple times."""
+"""Apply tokens.json CSS to the plaintext pages. Idempotent — safe to run multiple times."""
 import re, sys, os
 
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 TOKENS_PATH = os.path.join(os.path.dirname(__file__), "tokens.json")
 PAGES = [
-    "/root/new-index.html",
-    "/root/upload-form-plain.html",
-    "/root/manage-form-plain.html",
+    os.path.join(ROOT, "index.html"),
+    os.path.join(ROOT, "manage", "index.html"),
 ]
 
 # Generate the full CSS block from tokens
-generated_css = os.popen("python3 /root/_design/generate_css.py").read()
+generated_css = os.popen(
+    f"python3 {os.path.join(os.path.dirname(__file__), 'generate_css.py')}"
+).read()
 
 # Wrap in <style> tags
 style_block = f"<style>\n{generated_css}</style>"
@@ -41,4 +43,4 @@ for path in PAGES:
 
     print(f"✅ {os.path.basename(path)} — CSS updated")
 
-print("\nDone. Run `python3 _design/validate_design.py` to verify all consistent.")
+print("\nDone. Run `python3 tooling/_design/validate_design.py` to verify all consistent.")

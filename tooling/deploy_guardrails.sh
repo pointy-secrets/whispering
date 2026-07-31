@@ -46,19 +46,23 @@ if [ ! -f upload/index.html ]; then fail "upload/index.html missing"; else
   fi
 fi
 
-# ---------- 4. UPLOAD SOURCE (upload.html) ----------
-echo "[4] Upload source (upload.html)"
-if [ ! -f upload.html ]; then warn "upload.html missing (only encrypted upload/index.html present)"; else
-  grep -q "github_pat_" upload.html && fail "token hardcoded in upload source (must not be)" || pass "no hardcoded token in upload source"
-  B=$(grep -oE "font-weight: [4-9][0-9]?[0-9]?" upload.html | wc -l)
-  BW=$(grep -iwc "bold" upload.html)
-  if [ "$B" -gt 0 ] || [ "$BW" -gt 0 ]; then fail "bold/heavy font-weight present"; else pass "no bold weights"; fi
+# ---------- 4. NO PLAINTEXT TOKEN OUTSIDE ENCRYPTED UPLOAD ----------
+echo "[4] Plaintext token scan"
+LEAK=$(git grep -lE 'github_pat_[A-Za-z0-9_]{20,}' -- ':!tooling/deploy_guardrails.sh' 2>/dev/null)
+if [ -n "$LEAK" ]; then fail "github_pat_ token found in plaintext: $LEAK (must live only inside the staticrypt-encrypted blob)"; else pass "no plaintext token outside encrypted upload"; fi
+
+# ---------- 5. DESIGN CONSISTENCY (tokens present in plaintext pages) ----------
+echo "[5] Design consistency (tooling/_design)"
+if python3 tooling/_design/validate_design.py >/dev/null 2>&1; then
+  pass "tokens present in all plaintext pages"
+else
+  fail "design validation failed - run python3 tooling/_design/validate_design.py"
 fi
 
-# ---------- 5. TOKEN VALIDITY (uses $GH_TOKEN or /root/.gh_token, never a hardcoded one) ----------
-echo "[5] GitHub token validity"
+# ---------- 6. TOKEN VALIDITY (uses $GH_TOKEN or ~/.gh_token, never a hardcoded one) ----------
+echo "[6] GitHub token validity"
 if [ -n "${GH_TOKEN:-}" ]; then TOKEN="$GH_TOKEN"
-elif [ -f /root/.gh_token ]; then TOKEN="$(cat /root/.gh_token)"
+elif [ -f "$HOME/.gh_token" ]; then TOKEN="$(cat "$HOME/.gh_token")"
 else TOKEN=""; fi
 if [ -z "$TOKEN" ]; then warn "no GH_TOKEN available - skipping API check"; else
   CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 15 -H "Authorization: Bearer $TOKEN" "https://api.github.com/repos/pointy-secrets/whispering/contents/_data/songs.json")

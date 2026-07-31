@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
-"""Check that all three page CSS matches what tokens.json generates.
+"""Check that the plaintext page CSS matches what tokens.json generates.
 Exits 1 on mismatch. Run before any push."""
 import json, os, re, sys
 
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 TOKENS_PATH = os.path.join(os.path.dirname(__file__), "tokens.json")
 PAGES = [
-    ("/root/new-index.html", "main"),
-    ("/root/upload-form-plain.html", "upload"),
-    ("/root/manage-form-plain.html", "manage"),
+    (os.path.join(ROOT, "index.html"), "main"),
+    (os.path.join(ROOT, "manage", "index.html"), "manage"),
 ]
 
 with open(TOKENS_PATH) as f:
     tokens = json.load(f)
 
-generated = os.popen("python3 /root/_design/generate_css.py").read()
+generated = os.popen(
+    f"python3 {os.path.join(os.path.dirname(__file__), 'generate_css.py')}"
+).read()
 
 checks = []
 checks.append((tokens["font"]["size_body"], "font.size_body"))

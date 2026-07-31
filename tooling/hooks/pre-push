@@ -1,0 +1,14 @@
+#!/bin/bash
+# pre-push hook — runs deploy_guardrails.sh before every push.
+# Install once with: git config core.hooksPath tooling/hooks
+set -u
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+echo ""
+echo ">>> pre-push hook: running deploy guardrails"
+if ! bash "$REPO_ROOT/tooling/deploy_guardrails.sh"; then
+  echo ""
+  echo ">>> GUARDRAILS FAILED — push aborted"
+  exit 1
+fi
+echo ">>> guardrails passed — allowing push"
