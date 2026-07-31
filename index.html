@@ -317,7 +317,7 @@ select.filter-select {
   function render(filter) {
     list.innerHTML = '';
     const filtered = filter === 'all' ? allTracks : allTracks.filter(t => (t.artist || t.user) === filter);
-    filtered.forEach(t => {
+    filtered.slice().reverse().forEach(t => {
       const row = document.createElement('div');
       row.className = 'track';
       const audio = document.createElement('audio');
