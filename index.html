@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>whispering!</title>
 <style>
+/* WHISPERING-GENERATED — do not hand-edit; edit tooling/_design/tokens.json instead */
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html { height: 100%; }
+
 body {
-  padding: 10px 3px 40px 3px;
   background: #ffffff;
   color: #00C3E1;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -18,10 +17,12 @@ body {
   font-weight: 200;
   line-height: 1.5;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 40px 80px 40px;
+  padding: clamp(24px, 4vw, 48px) clamp(16px, 5vw, 80px) 40px;
+  overflow-x: clip;
 }
 
 a { color: #00C3E1; text-decoration: none; }
@@ -29,30 +30,38 @@ a:hover { opacity: 0.7; }
 
 .container {
   width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
   position: relative;
 }
 
 .header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  column-gap: 24px;
+  row-gap: 12px;
+  margin-bottom: clamp(16px, 3vw, 20px);
   position: relative;
 }
 
 .header .logo {
-  font-size: clamp(72px, 22vw, 200px);
+  font-size: clamp(36px, 11vw, 100px);
   font-style: italic;
   font-weight: 200;
   color: #00C3E1;
+  line-height: 0.95;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
-/* Full-width hairline under the whispering! logo */
+/* Full-width hairline under the logo */
 .logo-rule {
   width: 100%;
   border: none;
   border-top: 1px solid rgba(0,195,225,0.25);
-  margin: 20px 0 0;
+  margin: clamp(16px, 3vw, 20px) 0 0;
 }
 
 .filter-btn {
@@ -63,6 +72,7 @@ a:hover { opacity: 0.7; }
   flex-direction: column;
   gap: 3px;
   padding: 0;
+  flex-shrink: 0;
 }
 .filter-btn span {
   display: block;
@@ -81,6 +91,7 @@ a:hover { opacity: 0.7; }
   border: 1px solid #00C3E1;
   border-radius: 8px;
   min-width: 160px;
+  max-width: min(280px, calc(100vw - 32px));
   padding: 6px;
   z-index: 10;
 }
@@ -113,18 +124,21 @@ a:hover { opacity: 0.7; }
 .track-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding-top: 54px;
+  gap: clamp(14px, 2vw, 16px);
+  padding-top: clamp(28px, 5vw, 54px);
+  width: 100%;
 }
 
 .track {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
 }
 
 .track audio {
-  width: 300px;
+  width: 100%;
+  min-width: min(300px, 100%);
   max-width: 100%;
   height: 36px;
 }
@@ -137,6 +151,8 @@ a:hover { opacity: 0.7; }
   font-size: 10pt;
   font-weight: 200;
   color: #00C3E1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .track-title { font-weight: 200; }
 .track-artist { opacity: 0.7; font-weight: 200; }
@@ -164,7 +180,6 @@ a:hover { opacity: 0.7; }
 .drop-zone {
   border: 1px solid #00C3E1;
   border-radius: 8px;
-  height: 180px;
   text-align: center;
   cursor: pointer;
   font-size: 10pt;
@@ -175,6 +190,10 @@ a:hover { opacity: 0.7; }
   justify-content: center;
   align-items: center;
   gap: 4px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  height: auto;
 }
 .drop-zone .small-text {
   font-size: 9pt;
@@ -222,13 +241,15 @@ select.filter-select {
 .song-list { display: flex; flex-direction: column; gap: 10px; }
 .song-item {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   font-size: 10pt;
   font-weight: 200;
+  min-width: 0;
 }
-.song-meta { opacity: 0.7; }
+.song-meta { opacity: 0.7; min-width: 0; overflow-wrap: anywhere; }
 .delete-btn {
   background: none;
   border: none;
@@ -238,42 +259,28 @@ select.filter-select {
   font-weight: 200;
   color: #00C3E1;
   padding: 2px 6px;
+  flex-shrink: 0;
 }
 .delete-btn:hover { opacity: 0.6; }
 
 .back-link { margin-top: 16px; font-size: 10pt; font-weight: 200; }
+</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>whispering!</title>
 
-/* ===== DESKTOP-ONLY OVERRIDES (min-width: 601px) ===== */
-@media (min-width: 601px) {
-  body {
-  padding: 10px 3px 40px 3px;
-    padding: 24px 80px 40px;
-  }
-  .track audio {
-    width: 400px;
-  }
-  .track-list {
-    gap: 16px;
-  }
+<style>
+/* WHISPERING-PAGE-SPECIFIC — index/ home overrides; survives apply_tokens (no generated sentinel) */
+.header .logo {
+  color: #00DDFF; /* slightly more saturated + lighter than brand cyan #00C3E1 */
 }
-
-@media (max-width: 600px) {
-  body {
-  padding: 10px 3px 40px 3px; padding: 24px 16px 40px; }
-  .container { max-width: 100%; }
-}
-@media (min-width: 1200px) {
-  body {
-  padding: 10px 3px 40px 3px; padding: 48px 80px 40px; }
-}
-
 </style>
 </head>
 <body>
 
 <div class="container">
   <div class="header">
-    <a href="/" class="logo">whispering!</a>
+    <a href="/" class="logo">whispering</a>
     <button class="filter-btn" id="filterBtn" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>

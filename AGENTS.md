@@ -34,7 +34,7 @@ Note: untracked local configs reference `/code-projects/operating-system/...` an
 Single source of truth: `tooling/_design/tokens.json` (flat key format, e.g. `font.size_body`).
 
 1. Edit `tooling/_design/tokens.json`
-2. Run `python3 tooling/_design/apply_tokens.py` — replaces `<style>` blocks in `index.html` and `manage/index.html` (upload page is encrypted; its styling is set at re-encrypt time via the template)
+2. Run `python3 tooling/_design/apply_tokens.py` — replaces only the `/* WHISPERING-GENERATED */` `<style>` blocks in `index.html` and `manage/index.html`; `WHISPERING-PAGE-SPECIFIC` override blocks survive (upload page is encrypted; its styling is set at re-encrypt time via the template)
 3. Run `python3 tooling/_design/validate_design.py` — exits 1 if any token missing from any plaintext page
 4. Run `bash tooling/deploy_guardrails.sh` — pre-push checks (bold tokens, hardcoded PAT, design consistency, token validity via GitHub API)
 5. If upload changed: re-encrypt with Staticrypt, then `bash tooling/audit_staticrypt.sh`
@@ -45,8 +45,8 @@ Note: there is no `_design/` W3C pipeline and no `styles.css` anymore — remove
 ## Style rules
 
 - **Font-weight: 200 everywhere. No bold.**
-- Accent: cyan `#00C3E1`
-- Desktop side margin: 5px. Mobile: 16px.
+- Accent: cyan `#00C3E1`; home-page logo only uses `#00DDFF` (slightly more saturated/lighter) via `index.html`'s page-specific block.
+- **Fluid flex layout:** no fixed padding breakpoints. Side margins `clamp(16px, 5vw, 80px)`, top `clamp(24px, 4vw, 48px)`; `min-height: 100svh`; `min-width: 0` + `overflow-wrap: anywhere` on flex text children; nothing clips (see ARCHITECTURE.md → Layout System).
 - Font family: `system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif`
 - Body font size: `font.size_body` in tokens.json (e.g. "10pt"). No `font_scale` key.
 - To resize text: edit `font.size_body` in tokens, then run apply_tokens.

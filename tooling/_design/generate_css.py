@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Read tokens.json and output standardized CSS block for all whispering pages."""
-import json, sys, os
+"""Read tokens.json and output the shared fluid/flex CSS block for all whispering pages."""
+import json, os
 
 TOKENS_PATH = os.path.join(os.path.dirname(__file__), "tokens.json")
 with open(TOKENS_PATH) as f:
@@ -14,11 +14,12 @@ h = t["header"]
 m = t["menu"]
 b = t["borders"]
 mpg = t["manage_page"]
-d = t.get("desktop", {})
 
 CSS = f"""@import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
 
 * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+
+html {{ height: 100%; }}
 
 body {{
   background: {c['background']};
@@ -28,10 +29,12 @@ body {{
   font-weight: {f['weight_all']};
   line-height: 1.5;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   padding: {s['margin_top_desktop']} {s['margin_side']} {s['margin_bottom']};
+  overflow-x: clip;
 }}
 
 a {{ color: {c['primary']}; text-decoration: none; }}
@@ -39,13 +42,18 @@ a:hover {{ opacity: 0.7; }}
 
 .container {{
   width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
   position: relative;
 }}
 
 .header {{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  column-gap: 24px;
+  row-gap: 12px;
   margin-bottom: {s['gap_header_bottom']};
   position: relative;
 }}
@@ -55,9 +63,12 @@ a:hover {{ opacity: 0.7; }}
   font-style: {h['logo_style']};
   font-weight: {h['logo_weight']};
   color: {c['primary']};
+  line-height: {h['logo_line_height']};
+  max-width: {h['logo_max_width']};
+  overflow-wrap: anywhere;
 }}
 
-/* Full-width hairline under the whispering! logo */
+/* Full-width hairline under the logo */
 .logo-rule {{
   width: 100%;
   border: none;
@@ -73,6 +84,7 @@ a:hover {{ opacity: 0.7; }}
   flex-direction: column;
   gap: 3px;
   padding: 0;
+  flex-shrink: 0;
 }}
 .filter-btn span {{
   display: block;
@@ -91,6 +103,7 @@ a:hover {{ opacity: 0.7; }}
   border: 1px solid {c['primary']};
   border-radius: {m['border_radius']};
   min-width: 160px;
+  max-width: {m['max_width']};
   padding: 6px;
   z-index: 10;
 }}
@@ -109,7 +122,7 @@ a:hover {{ opacity: 0.7; }}
   cursor: pointer;
   border-radius: 4px;
 }}
-.filter-menu button:hover {{ background: #f0fafc; }}
+.filter-menu button:hover {{ background: {c['drop_zone_hover']}; }}
 .filter-menu button.active {{ color: {c['primary']}; }}
 .filter-menu .divider {{
   border-bottom: 0.5px solid {c['primary']};
@@ -117,7 +130,7 @@ a:hover {{ opacity: 0.7; }}
   padding-bottom: 8px;
 }}
 .filter-menu .artist-item {{
-  padding-left: {m.get('artist_indent', '16px')};
+  padding-left: {m['artist_indent']};
 }}
 
 .track-list {{
@@ -125,16 +138,19 @@ a:hover {{ opacity: 0.7; }}
   flex-direction: column;
   gap: {s['gap_tracks']};
   padding-top: {s['top_padding']};
+  width: 100%;
 }}
 
 .track {{
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
 }}
 
 .track audio {{
   width: {mp['width_desktop']};
+  min-width: min(300px, 100%);
   max-width: 100%;
   height: {mp['height']};
 }}
@@ -147,6 +163,8 @@ a:hover {{ opacity: 0.7; }}
   font-size: {f['size_body']};
   font-weight: {f['weight_all']};
   color: {c['primary']};
+  min-width: 0;
+  overflow-wrap: anywhere;
 }}
 .track-title {{ font-weight: {f['weight_all']}; }}
 .track-artist {{ opacity: {c['opacity_muted']}; font-weight: {f['weight_all']}; }}
@@ -174,7 +192,6 @@ a:hover {{ opacity: 0.7; }}
 .drop-zone {{
   border: 1px solid {c['primary']};
   border-radius: {s['drop_zone_radius']};
-  height: {s['drop_zone_height']};
   text-align: center;
   cursor: pointer;
   font-size: {f['size_body']};
@@ -185,12 +202,16 @@ a:hover {{ opacity: 0.7; }}
   justify-content: center;
   align-items: center;
   gap: 4px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  height: auto;
 }}
 .drop-zone .small-text {{
   font-size: 9pt;
   opacity: 0.6;
 }}
-.drop-zone.dragover {{ background: #f0fafc; }}
+.drop-zone.dragover {{ background: {c['drop_zone_hover']}; }}
 
 button.submit-btn {{
   width: 100%;
@@ -232,13 +253,15 @@ select.filter-select {{
 .song-list {{ display: flex; flex-direction: column; gap: 10px; }}
 .song-item {{
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   font-size: {f['size_body']};
   font-weight: {f['weight_all']};
+  min-width: 0;
 }}
-.song-meta {{ opacity: {c['opacity_muted']}; }}
+.song-meta {{ opacity: {c['opacity_muted']}; min-width: 0; overflow-wrap: anywhere; }}
 .delete-btn {{
   background: none;
   border: none;
@@ -248,44 +271,11 @@ select.filter-select {{
   font-weight: {f['weight_all']};
   color: {c['primary']};
   padding: 2px 6px;
+  flex-shrink: 0;
 }}
 .delete-btn:hover {{ opacity: 0.6; }}
 
 .back-link {{ margin-top: 16px; font-size: {f['size_body']}; font-weight: {f['weight_all']}; }}
-
-/* ===== DESKTOP-ONLY OVERRIDES (min-width: 601px) ===== */
-@media (min-width: 601px) {{
-  body {{
-    padding: {d.get('margin_top', '24px')} {d.get('margin_side', '80px')} {s['margin_bottom']};
-  }}
-  .track audio {{
-    width: {d.get('audio_player_width', '400px')};
-  }}
-  .track-list {{
-    gap: {d.get('track_gap', '16px')};
-  }}
-  /* Square drop zone on desktop */
-  .drop-zone {{
-    aspect-ratio: {d.get('drop_zone_aspect', '1 / 1')};
-    height: auto;
-    max-width: 400px;
-  }}
-  /* Scale fonts up on desktop */
-  body, .header .logo, .filter-menu button, .track-info, .form-group label,
-  .form-group input[type="text"], .status, .page-title, select.filter-select,
-  .song-item, .delete-btn, .back-link, .drop-zone, .drop-zone .small-text {{
-    font-size: calc({f['size_body']} * {d.get('font_scale', '2')});
-  }}
-}}
-
-@media (max-width: 600px) {{
-  body {{ padding: {s['margin_top_mobile']} {s['margin_side_mobile']} {s['margin_bottom']}; }}
-  .container {{ max-width: 100%; }}
-  .header .logo {{ font-size: {f['size_logo_mobile']}; }}
-}}
-@media (min-width: 1200px) {{
-  body {{ padding: {s['margin_top_wide']} {s['margin_side']} {s['margin_bottom']}; }}
-}}
 """
 
 print(CSS)

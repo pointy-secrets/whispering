@@ -2,9 +2,12 @@
 <html lang="en">
 <head>
 <style>
+/* WHISPERING-GENERATED — do not hand-edit; edit tooling/_design/tokens.json instead */
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { height: 100%; }
 
 body {
   background: #ffffff;
@@ -14,10 +17,12 @@ body {
   font-weight: 200;
   line-height: 1.5;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 40px 80px 40px;
+  padding: clamp(24px, 4vw, 48px) clamp(16px, 5vw, 80px) 40px;
+  overflow-x: clip;
 }
 
 a { color: #00C3E1; text-decoration: none; }
@@ -25,30 +30,38 @@ a:hover { opacity: 0.7; }
 
 .container {
   width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
   position: relative;
 }
 
 .header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  column-gap: 24px;
+  row-gap: 12px;
+  margin-bottom: clamp(16px, 3vw, 20px);
   position: relative;
 }
 
 .header .logo {
-  font-size: 10pt;
+  font-size: clamp(36px, 11vw, 100px);
   font-style: italic;
   font-weight: 200;
   color: #00C3E1;
+  line-height: 0.95;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
-/* Full-width hairline under the whispering! logo */
+/* Full-width hairline under the logo */
 .logo-rule {
   width: 100%;
   border: none;
   border-top: 1px solid rgba(0,195,225,0.25);
-  margin: 20px 0 0;
+  margin: clamp(16px, 3vw, 20px) 0 0;
 }
 
 .filter-btn {
@@ -59,6 +72,7 @@ a:hover { opacity: 0.7; }
   flex-direction: column;
   gap: 3px;
   padding: 0;
+  flex-shrink: 0;
 }
 .filter-btn span {
   display: block;
@@ -77,6 +91,7 @@ a:hover { opacity: 0.7; }
   border: 1px solid #00C3E1;
   border-radius: 8px;
   min-width: 160px;
+  max-width: min(280px, calc(100vw - 32px));
   padding: 6px;
   z-index: 10;
 }
@@ -109,18 +124,21 @@ a:hover { opacity: 0.7; }
 .track-list {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding-top: 54px;
+  gap: clamp(14px, 2vw, 16px);
+  padding-top: clamp(28px, 5vw, 54px);
+  width: 100%;
 }
 
 .track {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
 }
 
 .track audio {
-  width: 300px;
+  width: 100%;
+  min-width: min(300px, 100%);
   max-width: 100%;
   height: 36px;
 }
@@ -133,6 +151,8 @@ a:hover { opacity: 0.7; }
   font-size: 10pt;
   font-weight: 200;
   color: #00C3E1;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .track-title { font-weight: 200; }
 .track-artist { opacity: 0.7; font-weight: 200; }
@@ -160,7 +180,6 @@ a:hover { opacity: 0.7; }
 .drop-zone {
   border: 1px solid #00C3E1;
   border-radius: 8px;
-  height: 180px;
   text-align: center;
   cursor: pointer;
   font-size: 10pt;
@@ -171,6 +190,10 @@ a:hover { opacity: 0.7; }
   justify-content: center;
   align-items: center;
   gap: 4px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  height: auto;
 }
 .drop-zone .small-text {
   font-size: 9pt;
@@ -218,13 +241,15 @@ select.filter-select {
 .song-list { display: flex; flex-direction: column; gap: 10px; }
 .song-item {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   gap: 12px;
   font-size: 10pt;
   font-weight: 200;
+  min-width: 0;
 }
-.song-meta { opacity: 0.7; }
+.song-meta { opacity: 0.7; min-width: 0; overflow-wrap: anywhere; }
 .delete-btn {
   background: none;
   border: none;
@@ -234,277 +259,32 @@ select.filter-select {
   font-weight: 200;
   color: #00C3E1;
   padding: 2px 6px;
+  flex-shrink: 0;
 }
 .delete-btn:hover { opacity: 0.6; }
 
 .back-link { margin-top: 16px; font-size: 10pt; font-weight: 200; }
-
-/* ===== DESKTOP-ONLY OVERRIDES (min-width: 601px) ===== */
-@media (min-width: 601px) {
-  body {
-    padding: 24px 80px 40px;
-  }
-  .track audio {
-    width: 400px;
-  }
-  .track-list {
-    gap: 16px;
-  }
-}
-
-@media (max-width: 600px) {
-  body { padding: 24px 16px 40px; }
-  .container { max-width: 100%; }
-  .header .logo { font-size: 10pt; }
-}
-@media (min-width: 1200px) {
-  body { padding: 48px 80px 40px; }
-}
-
 </style>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>whispering! — deletion page</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
+/* WHISPERING-PAGE-SPECIFIC — manage/ overrides; survives apply_tokens (no generated sentinel) */
 body {
-  background: #ffffff;
-  color: #00C3E1;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 10pt;
-  font-weight: 200;
-  line-height: 1.5;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  padding: 40px 24px 60px;
+  padding: clamp(24px, 4vw, 48px) clamp(16px, 4vw, 40px) 60px;
 }
-
-a { color: #00C3E1; text-decoration: none; }
-a:hover { opacity: 0.7; }
-
 .container {
-  width: 100%;
   max-width: 720px;
-  position: relative;
 }
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  position: relative;
-}
-
 .header .logo {
   font-size: 10pt;
-  font-style: italic;
-  font-weight: 200;
-  color: #00C3E1;
-}
-
-.filter-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  padding: 0;
-}
-.filter-btn span {
-  display: block;
-  width: 18px;
-  height: 1px;
-  background: #00C3E1;
-  border-radius: 1px;
-}
-
-.filter-menu {
-  display: none;
-  position: absolute;
-  top: 32px;
-  right: 0;
-  background: #ffffff;
-  border: 1px solid #00C3E1;
-  border-radius: 8px;
-  min-width: 160px;
-  padding: 6px;
-  z-index: 10;
-}
-.filter-menu.open { display: block; }
-.filter-menu button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 6px 10px;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 10pt;
-  font-weight: 200;
-  border: none;
-  background: none;
-  color: #00C3E1;
-  cursor: pointer;
-  border-radius: 4px;
-}
-.filter-menu button:hover { background: #f0fafc; }
-.filter-menu button.active { color: #00C3E1; }
-.filter-menu .divider {
-  border-bottom: 0.5px solid #00C3E1;
-  margin-bottom: 4px;
-  padding-bottom: 8px;
+  line-height: 1.5;
 }
 .filter-menu .artist-item {
   padding-left: 16px;
 }
-
-.track-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding-top: 54px;
-}
-
-.track {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.track audio {
-  width: 300px;
-  max-width: 100%;
-  height: 36px;
-}
-
-.track-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-left: 10px;
-  font-size: 10pt;
-  font-weight: 200;
-  color: #00C3E1;
-}
-.track-title { font-weight: 200; }
-.track-artist { opacity: 0.7; font-weight: 200; }
-
-.form-group { margin-bottom: 16px; }
-.form-group label {
-  display: block;
-  font-size: 10pt;
-  font-weight: 200;
-  margin-bottom: 6px;
-}
-.form-group input[type="text"] {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #00C3E1;
-  border-radius: 6px;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 10pt;
-  font-weight: 200;
-  color: #00C3E1;
-  background: #ffffff;
-}
-.form-group input::placeholder { color: #00C3E1; opacity: 0.5; }
-
-.drop-zone {
-  border: 1px solid #00C3E1;
-  border-radius: 8px;
-  height: 180px;
-  text-align: center;
-  cursor: pointer;
-  font-size: 10pt;
-  font-weight: 200;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-}
-.drop-zone .small-text {
-  font-size: 9pt;
-  opacity: 0.6;
-}
-.drop-zone.dragover { background: #f0fafc; }
-
-button.submit-btn {
-  width: 100%;
-  padding: 10px;
-  background: #00C3E1;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 10pt;
-  font-weight: 200;
-  cursor: pointer;
-}
-button.submit-btn:hover { opacity: 0.85; }
-button.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-.status { margin-top: 12px; font-size: 10pt; font-weight: 200; }
-
-.title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-.page-title { font-size: 10pt; font-weight: 200; opacity: 0.7; }
-select.filter-select {
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 10pt;
-  font-weight: 200;
-  color: #00C3E1;
-  background: #ffffff;
-  border: 1px solid #00C3E1;
-  border-radius: 6px;
-  padding: 4px 8px;
-}
-
-.hairline { border: none; border-top: 1px solid rgba(0,195,225,0.25); margin: 12px 0; }
-
-.song-list { display: flex; flex-direction: column; gap: 10px; }
-.song-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  font-size: 10pt;
-  font-weight: 200;
-}
-.song-meta { opacity: 0.7; }
-.delete-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  font-size: 11pt;
-  font-weight: 200;
-  color: #00C3E1;
-  padding: 2px 6px;
-}
-.delete-btn:hover { opacity: 0.6; }
-
-.back-link { margin-top: 16px; font-size: 10pt; font-weight: 200; }
-
-@media (max-width: 600px) {
-  body { padding: 24px 16px 60px; }
-  .container { max-width: 100%; }
-  .header .logo { font-size: 10pt; }
-}
-@media (min-width: 1200px) {
-  body { padding: 48px 24px 60px; }
-}
-
 </style>
 </head>
 <body>
