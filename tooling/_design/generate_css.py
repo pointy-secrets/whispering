@@ -15,9 +15,7 @@ m = t["menu"]
 b = t["borders"]
 mpg = t["manage_page"]
 
-CSS = f"""@import url('https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap');
-
-* {{ margin: 0; padding: 0; box-sizing: border-box; }}
+CSS = f"""* {{ margin: 0; padding: 0; box-sizing: border-box; }}
 
 html {{ height: 100%; }}
 
@@ -139,6 +137,8 @@ a:hover {{ opacity: 0.7; }}
   gap: {s['gap_tracks']};
   padding-top: {s['top_padding']};
   width: 100%;
+  max-width: {s['max_track_width']};
+  margin-inline: auto;
 }}
 
 .track {{
